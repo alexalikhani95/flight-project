@@ -5,8 +5,10 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
-    <div style={{ backgroundColor: 'white', height: '100vh' }}>
-      <RegsisterForm />
+    <div className="flex w-full bg-gray-100 h-screen justify-center">
+      <div>
+        <RegsisterForm />
+      </div>
     </div>
   );
 }
