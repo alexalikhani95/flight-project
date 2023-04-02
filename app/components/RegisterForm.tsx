@@ -15,10 +15,12 @@ const RegsisterForm = () => {
   const onSubmit = (data: FormData) => console.log(data);
 
   return (
-    <div className="flex flex-col align-center bg-white p-10 mt-10 shadow-lg">
-      <h1 className="text-3xl font-bold underline mb-5">Register</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="pb-1 flex flex-col">
+    <div className="flex flex-col align-center mt-10 shadow-lg">
+      <div className="text-white bg-black flex justify-center p-5">
+        <h1 className="text-3xl font-bold">Create Account</h1>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="firstName">First Name</label>
           <input
             type="text"
@@ -28,7 +30,7 @@ const RegsisterForm = () => {
           />
         </div>
 
-        <div className="pb-1 flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
@@ -38,7 +40,7 @@ const RegsisterForm = () => {
           />
         </div>
 
-        <div className="pb-1 flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -48,7 +50,7 @@ const RegsisterForm = () => {
           />
         </div>
 
-        <div className="pb-1 flex flex-col">
+        <div className="mb-5 flex flex-col">
           <label htmlFor="email">Password</label>
           <input
             type="password"
@@ -60,7 +62,7 @@ const RegsisterForm = () => {
         <div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded p-2 mt-5"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded p-2 mt-5 w-full"
           >
             Submit
           </button>
