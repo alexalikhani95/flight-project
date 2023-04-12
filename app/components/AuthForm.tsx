@@ -9,8 +9,7 @@ type Props = {
 };
 
 type AuthFormData = {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
 };
@@ -21,7 +20,7 @@ const AuthForm = ({ isLogin }: Props) => {
   const { createUser } = useContext(UserContext) as UserContextType;
 
   const onSubmit = (data: AuthFormData) => {
-    createUser(data.email, data.password);
+    createUser(data.email, data.password, data.username);
   };
 
   return (
@@ -31,21 +30,11 @@ const AuthForm = ({ isLogin }: Props) => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
         <div className="mb-5 flex flex-col">
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
-            id="firstName"
-            {...register('firstName', { required: true })}
-            className="shadow border rounded py-2 px-3"
-          />
-        </div>
-
-        <div className="mb-5 flex flex-col">
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            id="lastName"
-            {...register('lastName', { required: true })}
+            id="username"
+            {...register('username', { required: true })}
             className="shadow border rounded py-2 px-3"
           />
         </div>
