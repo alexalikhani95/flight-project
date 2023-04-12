@@ -3,6 +3,7 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   isLogin: boolean;
@@ -15,12 +16,15 @@ type AuthFormData = {
 };
 
 const AuthForm = ({ isLogin }: Props) => {
+  const router = useRouter();
+
   const { register, handleSubmit } = useForm<AuthFormData>();
 
   const { createUser } = useContext(UserContext) as UserContextType;
 
   const onSubmit = (data: AuthFormData) => {
     createUser(data.email, data.password, data.username);
+    router.push('/dashboard');
   };
 
   return (
