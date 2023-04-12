@@ -1,18 +1,24 @@
 'use client';
 
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { UserContext, UserContextType } from '../context/UserContext';
 
-type FormData = {
+type SignupData = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
 };
 
-const RegsisterForm = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+const Signup = () => {
+  const { register, handleSubmit } = useForm<SignupData>();
 
-  const onSubmit = (data: FormData) => console.log(data);
+  const { createUser } = useContext(UserContext) as UserContextType;
+
+  const onSubmit = (data: SignupData) => {
+    createUser(data.email, data.password);
+  };
 
   return (
     <div className="flex flex-col align-center mt-10 shadow-lg">
@@ -72,4 +78,4 @@ const RegsisterForm = () => {
   );
 };
 
-export default RegsisterForm;
+export default Signup;

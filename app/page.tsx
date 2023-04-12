@@ -1,14 +1,17 @@
 import { Inter } from 'next/font/google';
-import RegsisterForm from './components/RegisterForm';
+import Signup from './components/Signup';
+import { UserContextProvider } from './context/UserContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
-    <div className="flex w-full bg-gray-100 h-screen justify-center">
-      <div>
-        <RegsisterForm />
+    <UserContextProvider>
+      <div className="flex w-full bg-gray-100 h-screen justify-center">
+        <div>
+          <Signup />
+        </div>
       </div>
-    </div>
+    </UserContextProvider>
   );
 }
