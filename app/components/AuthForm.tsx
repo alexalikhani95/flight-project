@@ -4,19 +4,23 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
 
-type SignupData = {
+type Props = {
+  isLogin: boolean;
+};
+
+type AuthFormData = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
 };
 
-const Signup = () => {
-  const { register, handleSubmit } = useForm<SignupData>();
+const AuthForm = ({ isLogin }: Props) => {
+  const { register, handleSubmit } = useForm<AuthFormData>();
 
   const { createUser } = useContext(UserContext) as UserContextType;
 
-  const onSubmit = (data: SignupData) => {
+  const onSubmit = (data: AuthFormData) => {
     createUser(data.email, data.password);
   };
 
@@ -78,4 +82,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AuthForm;
