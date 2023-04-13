@@ -31,7 +31,7 @@ const AuthForm = ({ isLogin }: Props) => {
 
   return (
     <div className="flex flex-col align-center mt-10 shadow-lg">
-      <div className="text-white bg-black flex justify-center p-5">
+      <div className="text-blue-950 bg-white flex justify-center p-5">
         <h1 className="text-3xl font-bold">
           {isLogin ? 'Login' : 'Create Account'}
         </h1>
@@ -71,7 +71,7 @@ const AuthForm = ({ isLogin }: Props) => {
         <div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded p-2 mt-5 w-full"
+            className="bg-blue-700 hover:bg-blue-500 text-white font-bold rounded p-2 mt-5 w-full"
           >
             Submit
           </button>
