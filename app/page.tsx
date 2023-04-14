@@ -6,7 +6,7 @@ export default function Home() {
   const [signIn, setSignIn] = useState(true);
 
   return (
-    <div className="flex w-full bg-gray-100 h-screen items-center flex-col pt-5">
+    <div className="flex w-full bg-gray-100 h-screen items-center flex-col">
       <div className="flex items-center justify-center mt-10">
         <p>{signIn ? 'Dont have an account?' : 'Already have an account?'}</p>
         <button
