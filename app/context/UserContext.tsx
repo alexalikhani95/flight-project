@@ -9,6 +9,7 @@ import {
   signOut,
   onAuthStateChanged,
   User,
+  updatePassword,
 } from 'firebase/auth';
 
 export type UserContextType = {
@@ -20,6 +21,7 @@ export type UserContextType = {
   ) => Promise<any>;
   logout: () => Promise<any>;
   signIn: (email: string, password: string) => Promise<any>;
+  changePassword: (password: string) => Promise<any>;
 };
 
 type UserContextProviderProps = {
@@ -50,6 +52,10 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     return signOut(auth);
   };
 
+  const changePassword = (password: string) => {
+    return updatePassword(auth.currentUser!, password);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -60,7 +66,9 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn }}>
+    <UserContext.Provider
+      value={{ createUser, user, logout, signIn, changePassword }}
+    >
       {children}
     </UserContext.Provider>
   );
