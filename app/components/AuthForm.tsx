@@ -21,7 +21,7 @@ const AuthForm = ({ isLogin }: Props) => {
   const { register, handleSubmit } = useForm<AuthFormData>();
 
   const { createUser, signIn } = useContext(UserContext) as UserContextType;
-  const [userExistsError, setUserExistsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (data: AuthFormData) => {
     try {
@@ -33,29 +33,28 @@ const AuthForm = ({ isLogin }: Props) => {
       router.push('/dashboard');
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
-        console.log(error);
-        setUserExistsError(true);
-      } else {
-        console.error(error);
-        alert(
-          'An error occurred while processing your request. Please try again later.'
+        setErrorMessage('A User with this email already exists');
+      }
+      if (error.code === 'auth/user-not-found') {
+        setErrorMessage(
+          'Sorry, we cant find a user with those details. Please check and try again.'
         );
+      } else {
+        setErrorMessage('An error occurred. Please try again later.');
       }
     }
   };
 
   return (
-    <div className="flex flex-col align-center mt-10 shadow-lg">
+    <div className="flex flex-col align-center mt-10 shadow-lg w-[350px] max-w-full">
       <div className="text-blue-950 bg-white flex justify-center p-5">
         <h1 className="text-3xl font-bold">
           {isLogin ? 'Login' : 'Create Account'}
         </h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
-        {userExistsError && !isLogin && (
-          <p className="text-red-500 mb-10">
-            A User with this email already exists
-          </p>
+        {errorMessage !== '' && (
+          <p className="text-red-500 mb-10">{errorMessage}</p>
         )}
         {!isLogin && (
           <div className="mb-5 flex flex-col">
