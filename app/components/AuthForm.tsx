@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
@@ -21,12 +21,27 @@ const AuthForm = ({ isLogin }: Props) => {
   const { register, handleSubmit } = useForm<AuthFormData>();
 
   const { createUser, signIn } = useContext(UserContext) as UserContextType;
+  const [userExistsError, setUserExistsError] = useState(false);
 
-  const onSubmit = (data: AuthFormData) => {
-    isLogin
-      ? signIn(data.email, data.password)
-      : createUser(data.email, data.password, data.username);
-    router.push('/dashboard');
+  const onSubmit = async (data: AuthFormData) => {
+    try {
+      if (isLogin) {
+        await signIn(data.email, data.password);
+      } else {
+        await createUser(data.email, data.password, data.username);
+      }
+      router.push('/dashboard');
+    } catch (error: any) {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log(error);
+        setUserExistsError(true);
+      } else {
+        console.error(error);
+        alert(
+          'An error occurred while processing your request. Please try again later.'
+        );
+      }
+    }
   };
 
   return (
@@ -37,6 +52,11 @@ const AuthForm = ({ isLogin }: Props) => {
         </h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
+        {userExistsError && !isLogin && (
+          <p className="text-red-500 mb-10">
+            A User with this email already exists
+          </p>
+        )}
         {!isLogin && (
           <div className="mb-5 flex flex-col">
             <label htmlFor="username">Username</label>
