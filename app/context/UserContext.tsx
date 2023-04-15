@@ -59,7 +59,22 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+
+      // Save user data in localStorage on login
+      if (currentUser) {
+        localStorage.setItem('user', JSON.stringify(currentUser));
+      } else {
+        // Remove user data from localStorage on logout
+        localStorage.removeItem('user');
+      }
     });
+
+    // Get user data from localStorage on page load
+    const user = localStorage.getItem('user');
+    if (user) {
+      setUser(JSON.parse(user));
+    }
+
     return () => {
       unsubscribe();
     };
