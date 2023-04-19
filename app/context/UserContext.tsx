@@ -11,6 +11,8 @@ import {
   User,
   updatePassword,
 } from 'firebase/auth';
+import { useRouter, usePathname } from 'next/navigation';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export type UserContextType = {
   user: User | null;
@@ -31,7 +33,11 @@ type UserContextProviderProps = {
 export const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [user, setUser] = useState<User | null>(null);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const createUser = async (
     email: string,
@@ -67,6 +73,8 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         // Remove user data from localStorage on logout
         localStorage.removeItem('user');
       }
+
+      setIsCheckingAuth(false);
     });
 
     // Get user data from localStorage on page load
@@ -79,6 +87,16 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (!isCheckingAuth && !user && pathname !== '/') {
+      router.push('/');
+    }
+  }, [isCheckingAuth, pathname, router, user]);
+
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <UserContext.Provider

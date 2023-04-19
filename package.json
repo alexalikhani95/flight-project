@@ -21,6 +21,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-spinners": "^0.13.8",
     "ts-jest": "^29.1.0",
     "typescript": "5.0.2"
   },
