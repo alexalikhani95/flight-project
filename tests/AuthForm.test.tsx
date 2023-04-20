@@ -1,18 +1,11 @@
 import AuthForm from '@/app/components/AuthForm';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { useRouter } from 'next/navigation';
+import { render } from './utils/CustomRender';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     push: () => console.log('pushed'),
-  }),
-}));
-
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useContext: () => ({
-    createUser: () => console.log('pushed'),
-    signIn: () => console.log('pushed'),
   }),
 }));
 
