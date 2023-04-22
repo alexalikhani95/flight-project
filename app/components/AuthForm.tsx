@@ -58,34 +58,40 @@ const AuthForm = ({ isLogin }: Props) => {
         )}
         {!isLogin && (
           <div className="mb-5 flex flex-col">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              {...register('username', { required: true })}
-              className="shadow border rounded py-2 px-3"
-            />
+            <label>
+              Username
+              <input
+                type="text"
+                id="username"
+                {...register('username', { required: true })}
+                className="shadow border rounded py-2 px-3"
+              />
+            </label>
           </div>
         )}
 
         <div className="mb-5 flex flex-col">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            {...register('email', { required: true })}
-            className="shadow border rounded py-2 px-3"
-          />
+          <label>
+            Email
+            <input
+              type="email"
+              id="email"
+              {...register('email', { required: true })}
+              className="shadow border rounded py-2 px-3"
+            />
+          </label>
         </div>
 
         <div className="mb-5 flex flex-col">
-          <label htmlFor="email">Password</label>
-          <input
-            type="password"
-            id="password"
-            {...register('password', { required: true })}
-            className="shadow border rounded py-2 px-3"
-          />
+          <label>
+            Password
+            <input
+              type="password"
+              id="password"
+              {...register('password', { required: true })}
+              className="shadow border rounded py-2 px-3"
+            />
+          </label>
         </div>
         <div>
           <button
