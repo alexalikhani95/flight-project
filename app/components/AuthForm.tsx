@@ -64,7 +64,7 @@ const AuthForm = ({ isLogin }: Props) => {
                 type="text"
                 id="username"
                 {...register('username', { required: true })}
-                className="shadow border rounded py-2 px-3"
+                className="shadow border rounded py-2 px-3 ml-2"
               />
             </label>
           </div>
@@ -77,7 +77,7 @@ const AuthForm = ({ isLogin }: Props) => {
               type="email"
               id="email"
               {...register('email', { required: true })}
-              className="shadow border rounded py-2 px-3"
+              className="shadow border rounded py-2 px-3 ml-2"
             />
           </label>
         </div>
@@ -89,7 +89,7 @@ const AuthForm = ({ isLogin }: Props) => {
               type="password"
               id="password"
               {...register('password', { required: true })}
-              className="shadow border rounded py-2 px-3"
+              className="shadow border rounded py-2 px-3 ml-2"
             />
           </label>
         </div>
