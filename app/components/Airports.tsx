@@ -20,15 +20,15 @@ const Airports: React.FC = () => {
 
   useEffect(() => {
     const fetchAirports = async () => {
-      const response = await axios.get('/api/v9/airports');
+      const response = await axios.get(
+        `https://airlabs.co/api/v9/airports?api_key=${process.env.AIRLABS_API_KEY}`
+      );
       setAirports(response.data);
     };
     fetchAirports();
   }, []);
 
   console.log('airports', airports);
-
-  server.close();
 
   return (
     <div>

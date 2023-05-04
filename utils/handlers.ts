@@ -46,7 +46,14 @@ const fakeAirports: AirportData[] = [
 
 const handlers = [
   rest.get(
-    'https://airlabs.co/api/v9/airports',
+    `https://airlabs.co/api/v9/airports?api_key=${process.env.AIRLABS_API_KEY}`,
+    (req: RestRequest, res: ResponseComposition, ctx) => {
+      // return mock data
+      return res(ctx.json(fakeAirports));
+    }
+  ),
+  rest.get(
+    `https://airlabs.co/api/v9/airports?api_key=${process.env.AIRLABS_API_KEY}`,
     (req: RestRequest, res: ResponseComposition, ctx) => {
       // return mock data
       return res(ctx.json(fakeAirports));
