@@ -21,6 +21,11 @@ const Header = () => {
       </Link>
       {user && (
         <div>
+          <Link href="/dashboard">
+            <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
+              Dashboard
+            </button>
+          </Link>
           <Link href="/settings">
             <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
               Settings

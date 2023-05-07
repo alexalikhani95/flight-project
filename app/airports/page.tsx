@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { server } from '../../public/mockServiceWorker';
+import { server } from '../../mocks/server';
 
 export type AirportData = {
   countryCode: string;
@@ -28,13 +28,16 @@ const Airports: React.FC = () => {
     fetchAirports();
   }, []);
 
-  console.log('airports', airports);
-
   return (
-    <div>
+    <div className="flex flex-col text-blue-950 items-center">
+      <h1 className="text-3xl font-bold">Airports</h1>
+      {!airports && <p>No airports found, please try again.</p>}
       {airports &&
-        airports.slice(0, 10).map((airport, index) => (
-          <div key={index} className="flex justify-center items-center">
+        airports.map((airport, index) => (
+          <div
+            key={index}
+            className="flex flex-col align-center mt-10 shadow-lg w-[300px] max-w-full bg-white p-5"
+          >
             <p className="font-bold">{airport.name}</p>
           </div>
         ))}
