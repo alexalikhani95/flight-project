@@ -5,9 +5,9 @@ import axios from 'axios';
 import { server } from '../../mocks/server';
 
 export type AirportData = {
-  countryCode: string;
-  iataCode: string;
-  icaoCode: string;
+  country_code: string;
+  iata_code: string;
+  icao_code: string;
   lat: number;
   lng: number;
   name: string;

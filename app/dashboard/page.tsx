@@ -16,7 +16,12 @@ const Dashboard = () => {
       </Link>
       <Link href="/flights">
         <button className="mt-10 bg-white p-5 border-2 border-blue-950">
-          Flights
+          All Flights
+        </button>
+      </Link>
+      <Link href="/delayedFlights">
+        <button className="mt-10 bg-white p-5 border-2 border-blue-950">
+          Delayed Flights
         </button>
       </Link>
     </div>
