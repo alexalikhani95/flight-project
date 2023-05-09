@@ -44,8 +44,6 @@ const Flights: React.FC = () => {
     fetchFlights();
   }, []);
 
-  console.log('flights', flights);
-
   return (
     <div className="flex flex-col text-blue-950 items-center">
       <h1 className="text-3xl font-bold">Real time Flights</h1>
