@@ -3,31 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { server } from '../../mocks/server';
-
-export type FlightData = {
-  aircraft_icao?: string; //
-  aircraft_iata?: string;
-  airline_icao?: string;
-  alt?: number;
-  arr_iata?: string;
-  arr_icao?: string;
-  dep_iata?: string;
-  dep_icao?: string;
-  dir?: number;
-  flag?: string;
-  flight_iata?: string;
-  flight_icao?: string;
-  flight_number?: string;
-  hex?: string;
-  lat?: number;
-  lng?: number;
-  reg_number?: string;
-  speed?: number;
-  squawk?: string;
-  status?: string;
-  updated?: number;
-  v_speed?: number;
-};
+import { FlightData } from '@/types/types';
 
 const Flights: React.FC = () => {
   server.listen();
