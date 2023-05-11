@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { server } from '../../mocks/server';
 import { DelayedFlightsData } from '@/types/types';
+import { worker } from '@/mocks/browser';
 
 const DelayedFlights: React.FC = () => {
-  server.listen();
+  worker.start();
 
   const [delayedFlights, setDelayedFlights] = useState<DelayedFlightsData[]>(
     []

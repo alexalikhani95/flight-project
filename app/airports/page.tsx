@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { server } from '../../mocks/server';
 import { AirportData } from '@/types/types';
+import { worker } from '@/mocks/browser';
 
 const Airports: React.FC = () => {
-  server.listen();
-
+  worker.start();
   const [airports, setAirports] = useState<AirportData[]>([]);
 
   useEffect(() => {
