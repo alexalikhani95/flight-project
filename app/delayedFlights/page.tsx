@@ -3,11 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { DelayedFlightsData } from '@/types/types';
-import { worker } from '@/mocks/browser';
 
 const DelayedFlights: React.FC = () => {
-  worker.start();
-
   const [delayedFlights, setDelayedFlights] = useState<DelayedFlightsData[]>(
     []
   );

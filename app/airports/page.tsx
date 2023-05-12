@@ -3,10 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AirportData } from '@/types/types';
-import { worker } from '@/mocks/browser';
 
 const Airports: React.FC = () => {
-  worker.start();
   const [airports, setAirports] = useState<AirportData[]>([]);
 
   useEffect(() => {

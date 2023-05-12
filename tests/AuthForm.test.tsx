@@ -9,8 +9,6 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-const user = userEvent.setup();
-
 test('Renders login form when the login prop is true', () => {
   render(<AuthForm isLogin={true} />);
   expect(screen.getByText('Login')).toBeInTheDocument();
@@ -24,6 +22,7 @@ test('Renders Create Account form when the login prop is false', () => {
 });
 
 test('Signin is called when the user inputs email and password and clicks submit', async () => {
+  const user = userEvent.setup();
   const mockSignIn = jest.fn();
   render(<AuthForm isLogin={true} />, { signIn: mockSignIn });
 
@@ -42,6 +41,7 @@ test('Signin is called when the user inputs email and password and clicks submit
 });
 
 test('Create User function is called when the user inputs email and password and clicks submit', async () => {
+  const user = userEvent.setup();
   const mockCreateUser = jest.fn();
   render(<AuthForm isLogin={false} />, { createUser: mockCreateUser });
 

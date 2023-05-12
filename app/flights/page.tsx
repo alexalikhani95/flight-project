@@ -3,11 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FlightData } from '@/types/types';
-import { worker } from '@/mocks/browser';
 
 const Flights: React.FC = () => {
-  worker.start();
-
   const [flights, setFlights] = useState<FlightData[]>([]);
 
   useEffect(() => {
