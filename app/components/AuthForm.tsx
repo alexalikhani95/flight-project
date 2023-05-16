@@ -33,10 +33,10 @@ const AuthForm = ({ isLogin }: Props) => {
       router.push('/dashboard');
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
-        setErrorMessage('A User with this email already exists');
+        return setErrorMessage('A User with this email already exists');
       }
       if (error.code === 'auth/user-not-found') {
-        setErrorMessage(
+        return setErrorMessage(
           'Sorry, we cant find a user with those details. Please check and try again.'
         );
       } else {
