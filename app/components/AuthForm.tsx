@@ -37,6 +37,7 @@ const AuthForm = ({ isLogin }: Props) => {
       }
       router.push('/dashboard');
     } catch (error: any) {
+      console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         return setError('email', {
           type: 'manual',
@@ -76,9 +77,6 @@ const AuthForm = ({ isLogin }: Props) => {
         </h1>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
-        {errorMessage !== '' && (
-          <p className="text-red-500 mb-10">{errorMessage}</p>
-        )}
         {!isLogin && (
           <div className="mb-5 flex flex-col">
             <label>
@@ -86,6 +84,7 @@ const AuthForm = ({ isLogin }: Props) => {
               <input
                 type="text"
                 id="username"
+                required={true}
                 {...register('username', { required: true })}
                 className="shadow border rounded py-2 px-3 ml-2"
               />
@@ -99,6 +98,7 @@ const AuthForm = ({ isLogin }: Props) => {
             <input
               type="email"
               id="email"
+              required={true}
               {...register('email', { required: true })}
               className="shadow border rounded py-2 px-3 ml-2"
             />
@@ -114,6 +114,7 @@ const AuthForm = ({ isLogin }: Props) => {
             <input
               type="password"
               id="password"
+              required={true}
               {...register('password', { required: true })}
               className="shadow border rounded py-2 px-3 ml-2"
             />
