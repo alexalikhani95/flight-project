@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
 import { useRouter } from 'next/navigation';
@@ -18,10 +18,15 @@ type AuthFormData = {
 const AuthForm = ({ isLogin }: Props) => {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<AuthFormData>();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+    reset,
+  } = useForm<AuthFormData>();
 
   const { createUser, signIn } = useContext(UserContext) as UserContextType;
-  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (data: AuthFormData) => {
     try {
@@ -33,17 +38,35 @@ const AuthForm = ({ isLogin }: Props) => {
       router.push('/dashboard');
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
-        return setErrorMessage('A User with this email already exists');
+        return setError('email', {
+          type: 'manual',
+          message: 'A user with this email already exists',
+        });
       }
       if (error.code === 'auth/user-not-found') {
-        return setErrorMessage(
-          'Sorry, we cant find a user with those details. Please check and try again.'
-        );
+        return setError('email', {
+          type: 'manual',
+          message: "Sorry, we can't find a user with those details.",
+        });
+      }
+      if (error.code === 'auth/weak-password') {
+        return setError('password', {
+          type: 'manual',
+          message: 'Password must be a minimum of 6 characters',
+        });
       } else {
-        setErrorMessage('An error occurred. Please try again later.');
+        setError('password', {
+          type: 'manual',
+          message: 'An error occurred. Please try again later.',
+        });
       }
     }
   };
+
+  useEffect(() => {
+    // Clear form errors and reset the form when isLogin changes
+    reset();
+  }, [isLogin, reset]);
 
   return (
     <div className="flex flex-col align-center mt-10 shadow-lg w-[350px] max-w-full">
@@ -80,6 +103,9 @@ const AuthForm = ({ isLogin }: Props) => {
               className="shadow border rounded py-2 px-3 ml-2"
             />
           </label>
+          {errors.email && (
+            <p className="text-red-500 mt-1">{errors.email.message}</p>
+          )}
         </div>
 
         <div className="mb-5 flex flex-col">
@@ -92,6 +118,9 @@ const AuthForm = ({ isLogin }: Props) => {
               className="shadow border rounded py-2 px-3 ml-2"
             />
           </label>
+          {errors.password && (
+            <p className="text-red-500 mt-1">{errors.password.message}</p>
+          )}
         </div>
         <div>
           <button
