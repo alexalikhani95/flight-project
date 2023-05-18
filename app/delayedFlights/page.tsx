@@ -7,9 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const DelayedFlights: React.FC = () => {
   const fetchDelayedFlights = async () => {
-    const response = await axios.get(
-      `https://airlabs.co/api/v9/delays?delay=60&type=departures&api_key=${process.env.AIRLABS_API_KEY}`
-    );
+    const response = await axios.get('http://localhost:3000/api/delays');
     return response.data;
   };
 
