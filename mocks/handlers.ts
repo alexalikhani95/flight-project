@@ -3,21 +3,21 @@ import { fakeAirports, fakeFlights, fakeDelayedFlights } from './mockData';
 
 const handlers = [
   rest.get(
-    'https://airlabs.co/api/v9/airports',
+    'http://localhost:3000/api/airports',
     (req: RestRequest, res: ResponseComposition, ctx) => {
       // return mock data
       return res(ctx.json(fakeAirports));
     }
   ),
   rest.get(
-    'https://airlabs.co/api/v9/flights',
+    'http://localhost:3000/api/flights',
     (req: RestRequest, res: ResponseComposition, ctx) => {
       // return mock data
       return res(ctx.json(fakeFlights));
     }
   ),
   rest.get(
-    'https://airlabs.co/api/v9/delays',
+    'http://localhost:3000/api/delays',
     (req: RestRequest, res: ResponseComposition, ctx) => {
       // return mock data
       return res(ctx.json(fakeDelayedFlights));
