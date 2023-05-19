@@ -2,10 +2,19 @@
 import AuthForm from './components/AuthForm';
 import { useContext, useState } from 'react';
 import { UserContext, UserContextType } from './context/UserContext';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   const [signIn, setSignIn] = useState(true);
-  const { user } = useContext(UserContext) as UserContextType;
+  const { user, signIn: guestSignIn } = useContext(
+    UserContext
+  ) as UserContextType;
+
+  const signInAsGuest = async () => {
+    await guestSignIn('guest@gmail.com', 'guest123');
+    router.push('/dashboard');
+  };
 
   return (
     <div className="flex w-full bg-gray-100 h-screen items-center flex-col">
@@ -23,6 +32,13 @@ export default function Home() {
               {signIn ? 'Signup' : 'Login'}
             </button>
           </div>
+          <p>Or</p>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold rounded p-2 ml-2"
+            onClick={signInAsGuest}
+          >
+            Sign in as a guest
+          </button>
           <AuthForm isLogin={signIn} />
         </>
       )}
