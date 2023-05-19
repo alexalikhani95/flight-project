@@ -1,9 +1,9 @@
 'use client';
-import { worker } from '@/mocks/browser';
 import Header from './components/Header';
 import { UserContextProvider } from './context/UserContext';
 import './globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { server } from '@/mocks/server';
 
 const queryClient = new QueryClient();
 
@@ -12,7 +12,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  worker.start();
+  server.listen();
   return (
     <html lang="en">
       <body className="bg-gray-100">
