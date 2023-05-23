@@ -9,7 +9,7 @@ type ChangePasswordData = {
 };
 
 const Settings = () => {
-  const { changePassword } = useContext(UserContext) as UserContextType;
+  const { changePassword, user } = useContext(UserContext) as UserContextType;
   const { register, handleSubmit } = useForm<ChangePasswordData>();
   const [showPasswordUpdatedText, setShowUpdatedText] = useState(false);
 
@@ -23,6 +23,10 @@ const Settings = () => {
       setShowUpdatedText(false);
     }, 3000);
   }, [showPasswordUpdatedText]);
+
+  if (user?.email === 'guest@gmail.com') {
+    return;
+  }
 
   return (
     <div className="flex flex-col items-center">

@@ -26,11 +26,13 @@ const Header = () => {
               Dashboard
             </button>
           </Link>
-          <Link href="/settings">
-            <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
-              Settings
-            </button>
-          </Link>
+          {user.email !== 'guest@gmail.com' && (
+            <Link href="/settings">
+              <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
+                Settings
+              </button>
+            </Link>
+          )}
           <button
             className="text-blue-950 hover:text-blue-700 font-bold"
             onClick={handleLogout}
