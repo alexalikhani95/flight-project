@@ -98,6 +98,10 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     return <LoadingSpinner />;
   }
 
+  if (!isCheckingAuth && !user && pathname !== '/') {
+    return null;
+  }
+
   return (
     <UserContext.Provider
       value={{ createUser, user, logout, signIn, changePassword }}
