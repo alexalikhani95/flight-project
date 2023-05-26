@@ -2,13 +2,13 @@
 
 import React from 'react';
 import axios from 'axios';
-import { DelayedFlightsData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
+import { DelayedFlightsData } from '@/types/types';
 
 const DelayedFlights: React.FC = () => {
   const fetchDelayedFlights = async () => {
-    const response = await axios.get('http://localhost:3000/api/delays');
-    return response.data;
+    const { data } = await axios.get<DelayedFlightsData[]>('/api/delays');
+    return data;
   };
 
   const {

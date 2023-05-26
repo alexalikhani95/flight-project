@@ -7,8 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 
 const Flights: React.FC = () => {
   const fetchFlights = async () => {
-    const response = await axios.get('http://localhost:3000/api/flights');
-    return response.data;
+    const { data } = await axios.get<FlightData[]>('/api/flights');
+    return data;
   };
 
   const {
@@ -32,7 +32,7 @@ const Flights: React.FC = () => {
             key={index}
             className="flex flex-col align-center mt-10 shadow-lg w-[300px] max-w-full bg-white p-5"
           >
-            <p className="font-bold">{flight.flight_number}</p>
+            <p className="font-bold">Flight number: {flight.flight_number}</p>
           </div>
         ))}
     </div>
