@@ -10,6 +10,7 @@ import {
   onAuthStateChanged,
   User,
   updatePassword,
+  signInAnonymously,
 } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -23,6 +24,7 @@ export type UserContextType = {
   ) => Promise<any>;
   logout: () => Promise<any>;
   signIn: (email: string, password: string) => Promise<any>;
+  signInAsGuest: () => Promise<any>;
   changePassword: (password: string) => Promise<any>;
 };
 
@@ -52,6 +54,10 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   const signIn = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const signInAsGuest = () => {
+    return signInAnonymously(auth);
   };
 
   const logout = () => {
@@ -104,7 +110,14 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   return (
     <UserContext.Provider
-      value={{ createUser, user, logout, signIn, changePassword }}
+      value={{
+        createUser,
+        user,
+        logout,
+        signIn,
+        signInAsGuest,
+        changePassword,
+      }}
     >
       {children}
     </UserContext.Provider>
