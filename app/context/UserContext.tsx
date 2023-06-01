@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { nonAuthenticatedRoutes } from '@/routes/routes';
 
 export type UserContextType = {
   user: User | null;
@@ -95,7 +96,11 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   }, []);
 
   useEffect(() => {
-    if (!isCheckingAuth && !user && pathname !== '/') {
+    if (
+      !isCheckingAuth &&
+      !user &&
+      !nonAuthenticatedRoutes.includes(pathname)
+    ) {
       router.push('/');
     }
   }, [isCheckingAuth, pathname, router, user]);
