@@ -2,6 +2,8 @@
 import Header from './components/Header';
 import { UserContextProvider } from './context/UserContext';
 import './globals.css';
+import { usePathname } from 'next/navigation';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { server } from '@/mocks/server';
 
@@ -12,6 +14,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   server.listen();
   return (
     <html lang="en">
@@ -19,7 +23,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <UserContextProvider>
             <Header />
-            {children}
+            <div className={pathname !== '/' ? 'pt-10' : ''}>{children}</div>
           </UserContextProvider>
         </QueryClientProvider>
       </body>

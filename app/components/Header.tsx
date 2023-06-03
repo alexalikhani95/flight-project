@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between w-full bg-white py-5 px-20 mb-10">
+    <div className="flex justify-between w-full bg-white py-5 px-20">
       <Link href="/">
         <h1 className="text-3xl font-bold text-blue-950">Flight App</h1>
       </Link>

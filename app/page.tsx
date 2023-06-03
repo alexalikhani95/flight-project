@@ -17,8 +17,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex w-full bg-gray-100 h-screen items-center flex-col">
-      <h1 className="text-3xl font-bold">Home</h1>
+    <div className="flex w-full bg-[url('../images/airplane.jpg')] bg-[length:100%_100%] bg-no-repeat h-screen items-center flex-col">
       {!user && (
         <>
           <div className="flex items-center justify-center mt-10">
