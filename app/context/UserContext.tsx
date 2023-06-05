@@ -10,6 +10,7 @@ import {
   onAuthStateChanged,
   User,
   updatePassword,
+  updateEmail,
   signInAnonymously,
 } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
@@ -27,6 +28,7 @@ export type UserContextType = {
   signIn: (email: string, password: string) => Promise<any>;
   signInAsGuest: () => Promise<any>;
   changePassword: (password: string) => Promise<any>;
+  changeEmail: (email: string) => Promise<any>;
 };
 
 type UserContextProviderProps = {
@@ -67,6 +69,10 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   const changePassword = (password: string) => {
     return updatePassword(auth.currentUser!, password);
+  };
+
+  const changeEmail = (email: string) => {
+    return updateEmail(auth.currentUser!, email);
   };
 
   useEffect(() => {
@@ -122,6 +128,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         signIn,
         signInAsGuest,
         changePassword,
+        changeEmail,
       }}
     >
       {children}
