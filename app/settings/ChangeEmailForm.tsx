@@ -13,11 +13,9 @@ const ChangeEmailForm = () => {
   const { register, handleSubmit } = useForm<ChangeEmailData>();
   const [showEmailUpdatedText, setShowEmailUpdatedText] = useState(false);
 
-  const onSubmit = async (data: ChangeEmailData) => {
-    try {
-      await changeEmail(data.newEmail);
-      setShowEmailUpdatedText(true);
-    } catch (error: any) {}
+  const onSubmit = (data: ChangeEmailData) => {
+    changeEmail(data.newEmail);
+    setShowEmailUpdatedText(true);
   };
 
   useEffect(() => {
