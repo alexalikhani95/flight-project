@@ -7,7 +7,7 @@ const fetchDelayedFlights = async (
 ) => {
   try {
     const { data } = await axios.get(
-      `https://airlabs.co/api/v9/delays?delay=60&type=departures&api_key=${process.env.AIRLABS_API_KEY}`
+      `https://airlabs.co/api/v9/delays?delay=60&type=departures&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
     );
 
     res.status(200).json(data.response);

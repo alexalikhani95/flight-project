@@ -6,7 +6,7 @@ const nextConfig = {
     appDir: true,
   },
   env: {
-    AIRLABS_API_KEY: localEnv.AIRLABS_API_KEY,
+    NEXT_PUBLIC_AIRLABS_API_KEY: localEnv.NEXT_PUBLIC_AIRLABS_API_KEY,
   },
 }
 
