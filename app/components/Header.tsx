@@ -14,6 +14,8 @@ const Header = () => {
     router.push('/');
   };
 
+  console.log(user);
+
   return (
     <div className="flex justify-between w-full bg-white py-5 px-20">
       <Link href="/">
@@ -26,7 +28,7 @@ const Header = () => {
               Dashboard
             </button>
           </Link>
-          {user.email !== 'guest@gmail.com' && (
+          {!user.isAnonymous && (
             <Link href="/settings">
               <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
                 Settings
