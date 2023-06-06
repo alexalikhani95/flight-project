@@ -3,7 +3,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
-import ChangeEmailForm from './ChangeEmailForm';
 
 type ChangePasswordData = {
   newPassword: string;
@@ -11,13 +10,58 @@ type ChangePasswordData = {
 
 const ChangePasswordForm = () => {
   const { changePassword, user } = useContext(UserContext) as UserContextType;
-  const { register, handleSubmit } = useForm<ChangePasswordData>();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<ChangePasswordData>();
   const [showPasswordUpdatedText, setShowPasswordUpdatedText] = useState(false);
 
-  const onSubmit = (data: ChangePasswordData) => {
-    changePassword(data.newPassword);
-    setShowPasswordUpdatedText(true);
+  const onSubmit = async (data: ChangePasswordData) => {
+    try {
+      await changePassword(data.newPassword);
+      setShowPasswordUpdatedText(true);
+    } catch (error: any) {
+      if (error.code === 'auth/weak-password') {
+        return setError('newPassword', {
+          type: 'manual',
+          message: 'Password must be a minimum of 6 characters',
+        });
+      } else {
+        setError('newPassword', {
+          type: 'manual',
+          message: 'An error occurred. Please try again later.',
+        });
+      }
+    }
   };
+
+  // const onSubmit = async (data: ChangeEmailData) => {
+  //   try {
+  //     await changeEmail(data.newEmail);
+  //     setShowEmailUpdatedText(true);
+  //   } catch (error: any) {
+  //     console.log(error.code);
+  //     if (error.code === 'auth/email-already-in-use') {
+  //       return setError('newEmail', {
+  //         type: 'manual',
+  //         message: 'A user with this email already exists',
+  //       });
+  //     }
+  //     if (error.code === 'auth/invalid-email') {
+  //       return setError('newEmail', {
+  //         type: 'manual',
+  //         message: 'Invalid email',
+  //       });
+  //     } else {
+  //       setError('newEmail', {
+  //         type: 'manual',
+  //         message: 'An error occurred. Please try again later.',
+  //       });
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     setTimeout(function () {
@@ -31,13 +75,18 @@ const ChangePasswordForm = () => {
         <p className="font-bold">Change Password</p>
         <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
           <div className="mb-5 flex flex-col">
-            <label htmlFor="username">New Password</label>
-            <input
-              type="text"
-              id="username"
-              {...register('newPassword', { required: true })}
-              className="shadow border rounded py-2 px-3"
-            />
+            <label htmlFor="username">
+              New Password
+              <input
+                type="text"
+                id="username"
+                {...register('newPassword', { required: true })}
+                className="shadow border rounded py-2 px-3 ml-2"
+              />
+            </label>
+            {errors.newPassword && (
+              <p className="text-red-500 mt-1">{errors.newPassword.message}</p>
+            )}
             {showPasswordUpdatedText && <p>Password Updated!</p>}
           </div>
 
