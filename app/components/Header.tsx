@@ -14,8 +14,6 @@ const Header = () => {
     router.push('/');
   };
 
-  console.log(user);
-
   return (
     <div className="flex justify-between w-full bg-white py-5 px-20">
       <Link href="/">
