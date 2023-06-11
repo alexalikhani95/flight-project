@@ -28,16 +28,15 @@ const AuthForm = ({ isLogin }: Props) => {
 
   const { createUser, signIn } = useContext(UserContext) as UserContextType;
 
-  const onSubmit = async (data: AuthFormData) => {
+  const onSubmit = async ({ email, password, username }: AuthFormData) => {
     try {
       if (isLogin) {
-        await signIn(data.email, data.password);
+        await signIn(email, password);
       } else {
-        await createUser(data.email, data.password, data.username);
+        await createUser(email, password, username);
       }
       router.push('/dashboard');
     } catch (error: any) {
-      console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         return setError('email', {
           type: 'manual',
