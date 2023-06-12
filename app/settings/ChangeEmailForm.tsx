@@ -23,7 +23,6 @@ const ChangeEmailForm = () => {
       await changeEmail(data.newEmail);
       setShowEmailUpdatedText(true);
     } catch (error: any) {
-      console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         return setError('newEmail', {
           type: 'manual',
@@ -55,8 +54,8 @@ const ChangeEmailForm = () => {
       <div className="mt-10 text-center">
         <p className="font-bold">Change Email</p>
         <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
-          <div className="mb-5 flex flex-col">
-            <label htmlFor="email">
+          <div className="mb-5">
+            <label htmlFor="email" className="flex flex-col items-center">
               New Email
               <input
                 type="text"

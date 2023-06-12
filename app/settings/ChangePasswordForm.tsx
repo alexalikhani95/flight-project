@@ -37,32 +37,6 @@ const ChangePasswordForm = () => {
     }
   };
 
-  // const onSubmit = async (data: ChangeEmailData) => {
-  //   try {
-  //     await changeEmail(data.newEmail);
-  //     setShowEmailUpdatedText(true);
-  //   } catch (error: any) {
-  //     console.log(error.code);
-  //     if (error.code === 'auth/email-already-in-use') {
-  //       return setError('newEmail', {
-  //         type: 'manual',
-  //         message: 'A user with this email already exists',
-  //       });
-  //     }
-  //     if (error.code === 'auth/invalid-email') {
-  //       return setError('newEmail', {
-  //         type: 'manual',
-  //         message: 'Invalid email',
-  //       });
-  //     } else {
-  //       setError('newEmail', {
-  //         type: 'manual',
-  //         message: 'An error occurred. Please try again later.',
-  //       });
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
     setTimeout(function () {
       setShowPasswordUpdatedText(false);
@@ -74,8 +48,8 @@ const ChangePasswordForm = () => {
       <div className="mt-10 text-center">
         <p className="font-bold">Change Password</p>
         <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
-          <div className="mb-5 flex flex-col">
-            <label htmlFor="username">
+          <div className="mb-5">
+            <label htmlFor="username" className="flex flex-col items-center">
               New Password
               <input
                 type="text"

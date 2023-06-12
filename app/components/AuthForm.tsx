@@ -77,8 +77,8 @@ const AuthForm = ({ isLogin }: Props) => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
         {!isLogin && (
-          <div className="mb-5 flex flex-col">
-            <label>
+          <div className="mb-5">
+            <label className="flex flex-col items-center">
               Username
               <input
                 type="text"
@@ -91,8 +91,8 @@ const AuthForm = ({ isLogin }: Props) => {
           </div>
         )}
 
-        <div className="mb-5 flex flex-col">
-          <label>
+        <div className="mb-5">
+          <label className="flex flex-col items-center">
             Email
             <input
               type="email"
@@ -107,8 +107,8 @@ const AuthForm = ({ isLogin }: Props) => {
           )}
         </div>
 
-        <div className="mb-5 flex flex-col">
-          <label>
+        <div className="mb-5">
+          <label className="flex flex-col items-center">
             Password
             <input
               type="password"
