@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AirportData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash';
+import AirportCard from './AirportCard';
 
 const fetchAirports = async () => {
   const { data } = await axios.get<AirportData[]>('/api/airports');
@@ -72,12 +73,7 @@ const Airports: React.FC = () => {
         searchInput === '' &&
         airports &&
         airports.map((airport, index) => (
-          <div
-            key={index}
-            className="flex flex-col align-center mt-10 shadow-lg w-[300px] max-w-full bg-white p-5"
-          >
-            <p className="font-bold">{airport.name}</p>
-          </div>
+          <AirportCard airport={airport} key={index} />
         ))}
     </div>
   );

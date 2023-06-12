@@ -4,6 +4,7 @@ import React from 'react';
 import axios from 'axios';
 import { FlightData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
+import FlightCard from './FlightCard';
 
 const Flights: React.FC = () => {
   const fetchFlights = async () => {
@@ -28,12 +29,7 @@ const Flights: React.FC = () => {
       {!isLoading &&
         flights &&
         flights.map((flight: FlightData, index: number) => (
-          <div
-            key={index}
-            className="flex flex-col align-center mt-10 shadow-lg w-[300px] max-w-full bg-white p-5"
-          >
-            <p className="font-bold">Flight number: {flight.flight_number}</p>
-          </div>
+          <FlightCard flight={flight} key={index} />
         ))}
     </div>
   );
