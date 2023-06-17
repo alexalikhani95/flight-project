@@ -49,7 +49,7 @@ const Airports: React.FC = () => {
         type="text"
         value={searchInput}
         onChange={(e) => handleSearchChange(e)}
-        placeholder="Search airports"
+        placeholder="Search airports by name"
         className="mt-4 p-2 border border-gray-300 rounded"
       />
       {isLoading && <p>Loading airports...</p>}
@@ -62,12 +62,7 @@ const Airports: React.FC = () => {
       )}
       {filteredAirports.length > 0 &&
         filteredAirports?.map((airport, index) => (
-          <div
-            key={index}
-            className="flex flex-col align-center mt-10 shadow-lg w-[300px] max-w-full bg-white p-5"
-          >
-            <p className="font-bold">{airport.name}</p>
-          </div>
+          <AirportCard airport={airport} key={index} />
         ))}
       {filteredAirports.length < 1 &&
         searchInput === '' &&
