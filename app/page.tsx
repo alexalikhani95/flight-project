@@ -1,9 +1,11 @@
 'use client';
 
-import AuthForm from './components/AuthForm';
 import { useContext, useState } from 'react';
 import { UserContext, UserContextType } from './context/UserContext';
 import { useRouter } from 'next/navigation';
+import Airports from './airports/page';
+import Flights from './flights/page';
+import DelayedFlights from './delayedFlights/page';
 
 export default function Home() {
   const router = useRouter();
@@ -17,30 +19,16 @@ export default function Home() {
   };
 
   return (
-    <div className="flex w-full bg-[url('../images/airplane.jpg')] bg-[length:100%_100%] bg-no-repeat h-screen items-center flex-col">
-      {!user && (
-        <>
-          <div className="flex items-center justify-center mt-10">
-            <p>
-              {signIn ? 'Dont have an account?' : 'Already have an account?'}
-            </p>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold rounded p-2 ml-2"
-              onClick={() => setSignIn(!signIn)}
-            >
-              {signIn ? 'Signup' : 'Login'}
-            </button>
-          </div>
-          <p>Or</p>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold rounded p-2 ml-2"
-            onClick={handleGuestSignIn}
-          >
-            Sign in as a guest
-          </button>
-          <AuthForm isLogin={signIn} />
-        </>
-      )}
+    <div className="flex justify-evenly mt-10">
+      <div>
+        <Airports />
+      </div>
+      <div>
+        <Flights />
+      </div>
+      <div>
+        <DelayedFlights />
+      </div>
     </div>
   );
 }

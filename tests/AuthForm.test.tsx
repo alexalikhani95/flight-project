@@ -1,4 +1,4 @@
-import AuthForm from '@/app/components/AuthForm';
+import AuthForm from '@/app/auth/AuthForm';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { render } from './utils/CustomRender';
