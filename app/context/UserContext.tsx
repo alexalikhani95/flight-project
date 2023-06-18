@@ -116,7 +116,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     return <LoadingSpinner />;
   }
 
-  if (!isCheckingAuth && !user && pathname !== '/') {
+  if (!isCheckingAuth && !user && !nonAuthenticatedRoutes.includes(pathname)) {
     return null;
   }
 

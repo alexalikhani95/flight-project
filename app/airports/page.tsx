@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { AirportData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';

@@ -19,6 +19,20 @@ const Header = () => {
       <Link href="/">
         <h1 className="text-3xl font-bold text-blue-950">Flight App</h1>
       </Link>
+      {!user && (
+        <div>
+          <Link href="/auth/login">
+            <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
+              Login
+            </button>
+          </Link>
+          <Link href="auth/signup">
+            <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
+              Signup
+            </button>
+          </Link>
+        </div>
+      )}
       {user && (
         <div>
           <Link href="/dashboard">
