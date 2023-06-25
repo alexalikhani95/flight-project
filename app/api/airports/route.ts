@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-const fetchAirports = async (req: NextApiRequest, res: NextApiResponse) => {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { data } = await axios.get(
-      `https://airlabs.co/api/v9/airports?api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
+      `https://airlabs.co/api/v9/airports?api_key=${process.env.AIRLABS_API_KEY}`
     );
 
-    res.status(200).json(data.response);
+    return NextResponse.json({ data: data.response });
   } catch (error) {
+    console.log({ error });
     res.status(500).json({ error: 'failed to load data' });
   }
-};
-
-export default fetchAirports;
+}

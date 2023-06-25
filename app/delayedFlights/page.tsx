@@ -40,7 +40,6 @@ const DelayedFlights: React.FC = () => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
     setSearchInput(search);
-    delayedSearch.cancel();
     delayedSearch(search);
   };
 
