@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { AirportData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
-import { debounce } from 'lodash';
+import { useDebounce } from 'use-debounce';
 import AirportCard from './AirportCard';
+import Link from 'next/link';
 
 const fetchAirports = async () => {
   const { data } = await axios.get<AirportData[]>('/api/airports');
@@ -25,22 +26,23 @@ const Airports: React.FC = () => {
 
   const [finishedSearch, setFinishedSearch] = useState(false);
 
-  const delayedSearch = debounce((search: string) => {
-    if (airports) {
-      const filtered = airports.filter((airport) =>
-        airport.name?.toLowerCase().includes(search.toLowerCase())
-      );
-      setFilteredAirports(filtered);
-      setFinishedSearch(true);
-    }
-  }, 1000); // Delayed debounce for 1 second
+  const [debouncedSearchInput] = useDebounce(searchInput, 1000);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
     setSearchInput(search);
-    delayedSearch.cancel(); // Cancel any existing debounce timers when the search input changes.
-    delayedSearch(search); // Call the delayed search function
+    setFinishedSearch(false);
   };
+
+  useEffect(() => {
+    if (airports) {
+      const filtered = airports.filter((airport) =>
+        airport.name?.toLowerCase().includes(debouncedSearchInput.toLowerCase())
+      );
+      setFilteredAirports(filtered);
+      setFinishedSearch(true);
+    }
+  }, [debouncedSearchInput, airports]);
 
   return (
     <div className="flex flex-col text-blue-950 items-center">
