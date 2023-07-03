@@ -1,6 +1,8 @@
 // import { useRouter } from 'next/navigation';
 'use client';
 
+import { AirportData } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -13,20 +15,21 @@ type Props = {
 const Airport = ({ params }: Props) => {
   console.log('params', params);
 
-  const [airport, setAirport] = useState([]);
-
   const fetchAirport = async () => {
-    const response = await axios.get(
-      `https://airlabs.co/api/v9/airports?iata_code=${params.slug}&api_key=c0756ec2-5735-4a75-90e8-fa17e281ad48`
+    const { data } = await axios.get<AirportData>(
+      `/api/airport?iata_code=${params.slug}`
     );
-    setAirport(response.data);
+
+    return data;
   };
 
-  console.log(airport);
+  const {
+    data: airport,
+    isLoading,
+    isError,
+  } = useQuery(['airports'], fetchAirport);
 
-  useEffect(() => {
-    fetchAirport();
-  });
+  console.log(airport);
 
   return (
     <div>
