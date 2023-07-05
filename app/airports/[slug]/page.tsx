@@ -12,22 +12,22 @@ type Props = {
   };
 };
 
+const fetchAirport = async (slug: string) => {
+  const { data } = await axios.get<AirportData>(
+    `/api/airport?iata_code=${slug}`
+  );
+
+  return data;
+};
+
 const Airport = ({ params }: Props) => {
   console.log('params', params);
-
-  const fetchAirport = async () => {
-    const { data } = await axios.get<AirportData>(
-      `/api/airport?iata_code=${params.slug}`
-    );
-
-    return data;
-  };
 
   const {
     data: airport,
     isLoading,
     isError,
-  } = useQuery(['airports'], fetchAirport);
+  } = useQuery(['airports'], () => fetchAirport(params.slug));
 
   console.log(airport);
 
