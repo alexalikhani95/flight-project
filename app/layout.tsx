@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  // server.listen();
+  server.listen();
   return (
     <html lang="en">
       <head>

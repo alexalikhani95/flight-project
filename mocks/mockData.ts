@@ -1,5 +1,14 @@
 import { AirportData, FlightData, DelayedFlightsData } from '@/types/types';
 
+export const fakeAirport = {
+  country_code: 'US',
+  iata_code: 'ORD',
+  icao_code: 'KORD',
+  lat: 41.978367,
+  lng: -87.904712,
+  name: 'Chicago OHare International Airport',
+};
+
 export const fakeAirports: AirportData[] = [
   {
     country_code: 'US',

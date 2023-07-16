@@ -1,5 +1,10 @@
 import { rest, RestRequest, ResponseComposition } from 'msw';
-import { fakeAirports, fakeFlights, fakeDelayedFlights } from './mockData';
+import {
+  fakeAirports,
+  fakeAirport,
+  fakeFlights,
+  fakeDelayedFlights,
+} from './mockData';
 
 const handlers = [
   rest.get(
@@ -7,6 +12,13 @@ const handlers = [
     (req: RestRequest, res: ResponseComposition, ctx) => {
       // return mock data
       return res(ctx.json(fakeAirports));
+    }
+  ),
+  rest.get(
+    'http://localhost:3000/api/airport',
+    (req: RestRequest, res: ResponseComposition, ctx) => {
+      // return mock data
+      return res(ctx.json(fakeAirport));
     }
   ),
   rest.get(

@@ -5,6 +5,7 @@ import { AirportData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import AirportCard from '../AirportCard';
 
 type Props = {
   params: {
@@ -31,10 +32,15 @@ const Airport = ({ params }: Props) => {
 
   console.log(airport);
 
+  isLoading && <p>Loading airport...</p>;
+
   return (
     <div>
-      <h1>Airport {params.slug}</h1>
-      {/* <p>{params}</p> */}
+      {airport && (
+        <>
+          <AirportCard airport={airport} />
+        </>
+      )}
     </div>
   );
 };
