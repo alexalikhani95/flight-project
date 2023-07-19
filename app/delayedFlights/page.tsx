@@ -9,7 +9,7 @@ import DelayedFlightCard from './DelayedflightCard';
 
 const DelayedFlights: React.FC = () => {
   const fetchDelayedFlights = async () => {
-    const { data } = await axios.get<DelayedFlightsData[]>('/api/delays');
+    const { data } = await axios.get('/api/delays');
     return data;
   };
 
@@ -36,10 +36,11 @@ const DelayedFlights: React.FC = () => {
 
   useEffect(() => {
     if (delayedFlights) {
-      const filtered = delayedFlights.filter((flight) =>
-        flight.flight_number
-          ?.toLowerCase()
-          .includes(debouncedSearchInput.toLowerCase())
+      const filtered = delayedFlights.data.filter(
+        (flight: DelayedFlightsData) =>
+          flight.flight_number
+            ?.toLowerCase()
+            .includes(debouncedSearchInput.toLowerCase())
       );
       setFilteredFlights(filtered);
       setFinishedSearch(true);
@@ -73,7 +74,7 @@ const DelayedFlights: React.FC = () => {
       {filteredFlights.length < 1 &&
         searchInput === '' &&
         delayedFlights &&
-        delayedFlights.map((flight, index) => (
+        delayedFlights.data.map((flight: DelayedFlightsData, index: number) => (
           <DelayedFlightCard flight={flight} key={index} />
         ))}
     </div>

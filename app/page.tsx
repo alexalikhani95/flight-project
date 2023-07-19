@@ -11,9 +11,9 @@ export default function Home() {
       <div>
         <Flights />
       </div>
-      <div>
+      {/* <div>
         <DelayedFlights />
-      </div>
+      </div> */}
     </div>
   );
 }

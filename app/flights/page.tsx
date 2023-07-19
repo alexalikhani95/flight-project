@@ -9,7 +9,7 @@ import FlightCard from './FlightCard';
 
 const Flights: React.FC = () => {
   const fetchFlights = async () => {
-    const { data } = await axios.get<FlightData[]>('/api/flights');
+    const { data } = await axios.get('/api/flights');
     return data;
   };
 
@@ -34,7 +34,7 @@ const Flights: React.FC = () => {
 
   useEffect(() => {
     if (flights) {
-      const filtered = flights.filter((flight) =>
+      const filtered = flights.data.filter((flight: FlightData) =>
         flight.flight_number
           ?.toLowerCase()
           .includes(debouncedSearchInput.toLowerCase())
@@ -69,7 +69,7 @@ const Flights: React.FC = () => {
       {filteredFlights.length < 1 &&
         searchInput === '' &&
         flights &&
-        flights.map((flight, index) => (
+        flights.data.map((flight: FlightData, index: number) => (
           <FlightCard flight={flight} key={index} />
         ))}
     </div>

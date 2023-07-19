@@ -9,7 +9,7 @@ import AirportCard from './AirportCard';
 import Link from 'next/link';
 
 const fetchAirports = async () => {
-  const { data } = await axios.get<AirportData[]>('/api/airports');
+  const { data } = await axios.get('/api/airports');
   return data;
 };
 
@@ -36,7 +36,7 @@ const Airports: React.FC = () => {
 
   useEffect(() => {
     if (airports) {
-      const filtered = airports.filter((airport) =>
+      const filtered = airports.data.filter((airport: AirportData) =>
         airport.name?.toLowerCase().includes(debouncedSearchInput.toLowerCase())
       );
       setFilteredAirports(filtered);
@@ -69,7 +69,7 @@ const Airports: React.FC = () => {
       {filteredAirports.length < 1 &&
         searchInput === '' &&
         airports &&
-        airports.map((airport, index) => (
+        airports.data.map((airport: AirportData, index: number) => (
           <AirportCard airport={airport} key={index} />
         ))}
     </div>
