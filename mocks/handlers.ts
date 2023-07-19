@@ -4,6 +4,7 @@ import {
   fakeAirport,
   fakeFlights,
   fakeDelayedFlights,
+  fakeSchedule,
 } from './mockData';
 
 const handlers = [
@@ -26,6 +27,13 @@ const handlers = [
     (req: RestRequest, res: ResponseComposition, ctx) => {
       // return mock data
       return res(ctx.json(fakeFlights));
+    }
+  ),
+  rest.get(
+    'http://localhost:3000/api/schedule',
+    (req: RestRequest, res: ResponseComposition, ctx) => {
+      // return mock data
+      return res(ctx.json(fakeSchedule));
     }
   ),
   rest.get(

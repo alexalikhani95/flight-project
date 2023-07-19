@@ -12,8 +12,11 @@ export async function GET(request: Request) {
       return new Response('iata_code is required', { status: 400 });
     }
 
+    console.log(iata_code);
+    console.log(process.env.AIRLABS_API_KEY);
+
     const { data } = await axios.get(
-      `https://airlabs.co/api/v9/airports?iata_code=${iata_code}&api_key=${process.env.AIRLABS_API_KEY}`
+      `https://airlabs.co/api/v9/schedules?dep_iata=${iata_code}&api_key=${process.env.AIRLABS_API_KEY}`
     );
 
     return NextResponse.json({ data: data.response });
