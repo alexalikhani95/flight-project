@@ -22,20 +22,19 @@ const fetchAirport = async (slug: string) => {
 };
 
 const Airport = ({ params }: Props) => {
-  console.log('params', params);
-
   const {
     data: airport,
     isLoading,
     isError,
   } = useQuery(['airports'], () => fetchAirport(params.slug));
 
-  console.log(airport);
-
   isLoading && <p>Loading airport...</p>;
+  {
+    isError && <p>Error, please try again later</p>;
+  }
 
   return (
-    <div>
+    <div className="flex flex-col text-blue-950 items-center">
       {airport && (
         <>
           <AirportCard airport={airport} />

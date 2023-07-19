@@ -27,6 +27,7 @@ const Airport = ({ params }: Props) => {
   } = useQuery(['schedule'], () => fetchSchedule(params.slug));
 
   isLoading && <p>Loading airport...</p>;
+  isError && <p>Error, please try again later</p>;
 
   return (
     <div className="flex flex-col text-blue-950 items-center">
