@@ -1,4 +1,3 @@
-// import { useRouter } from 'next/navigation';
 'use client';
 
 import { AirportData } from '@/types/types';
