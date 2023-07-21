@@ -7,7 +7,7 @@ import { DelayedFlightsData } from '@/types/types';
 import { useDebounce } from 'use-debounce';
 import DelayedFlightCard from './DelayedflightCard';
 
-const DelayedFlights: React.FC = () => {
+const DelayedFlights = () => {
   const fetchDelayedFlights = async () => {
     const { data } = await axios.get('/api/delays');
     return data;

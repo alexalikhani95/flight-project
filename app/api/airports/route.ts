@@ -10,7 +10,6 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     return NextResponse.json({ data: data.response });
   } catch (error) {
-    console.log({ error });
     res.status(500).json({ error: 'failed to load data' });
   }
 }

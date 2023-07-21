@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import FlightCard from './FlightCard';
 
-const Flights: React.FC = () => {
+const Flights = () => {
   const fetchFlights = async () => {
     const { data } = await axios.get('/api/flights');
     return data;

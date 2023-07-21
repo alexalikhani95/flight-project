@@ -6,14 +6,13 @@ import { AirportData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import AirportCard from './AirportCard';
-import Link from 'next/link';
 
 const fetchAirports = async () => {
   const { data } = await axios.get('/api/airports');
   return data;
 };
 
-const Airports: React.FC = () => {
+const Airports = () => {
   const {
     data: airports,
     isLoading,

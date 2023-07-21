@@ -1,10 +1,8 @@
-// import { useRouter } from 'next/navigation';
 'use client';
 
 import { scheduleData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import ScheduleCard from '../ScheduleCard';
 
 type Props = {
