@@ -52,7 +52,7 @@ const Flights = () => {
         value={searchInput}
         onChange={handleSearchChange}
         placeholder="Search flights by number"
-        className="mt-4 p-2 border border-gray-300 rounded"
+        className="mt-4 p-2 border border-gray-300 rounded min-w-[300px]"
       />
       {isLoading && <p>Loading flights...</p>}
       {flights?.length === 0 && <p>No flights found, please try again.</p>}

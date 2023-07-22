@@ -51,7 +51,7 @@ const Airports = () => {
         value={searchInput}
         onChange={(e) => handleSearchChange(e)}
         placeholder="Search airports by name"
-        className="mt-4 p-2 border border-gray-300 rounded"
+        className="mt-4 p-2 border border-gray-300 rounded min-w-[300px]"
       />
       {isLoading && <p>Loading airports...</p>}
       {airports?.length === 0 && <p>No airports found, please try again.</p>}

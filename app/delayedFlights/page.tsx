@@ -55,7 +55,7 @@ const DelayedFlights = () => {
         value={searchInput}
         onChange={handleSearchChange}
         placeholder="Search delayed flights by number"
-        className="mt-4 p-2 border border-gray-300 rounded"
+        className="mt-4 p-2 border border-gray-300 rounded min-w-[300px]"
       />
       {isLoading && <p>Loading flights...</p>}
       {delayedFlights?.length === 0 && (
