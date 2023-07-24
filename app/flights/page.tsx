@@ -69,6 +69,7 @@ const Flights = () => {
       {filteredFlights.length < 1 &&
         searchInput === '' &&
         flights &&
+        flights.data &&
         flights.data.map((flight: FlightData, index: number) => (
           <FlightCard flight={flight} key={index} />
         ))}

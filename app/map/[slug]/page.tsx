@@ -8,6 +8,7 @@ type Props = {
 };
 
 const MapPage = ({ params }: Props) => {
+  console.log(params);
   const urlString = params.slug;
 
   const decodedUrlString = decodeURIComponent(urlString);
