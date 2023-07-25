@@ -1,7 +1,6 @@
 'use client';
 import { DelayedFlightsData } from '@/types/types';
-import { ViewScheduleButton } from '../components/ViewScheduleButton';
-import { ViewAirportDetailsButton } from '../components/ViewAirportDetailsButton';
+import RouteButton from '../components/RouteButton';
 
 type Props = {
   flight: DelayedFlightsData;
@@ -26,11 +25,13 @@ const DelayedFlightCard = ({ flight }: Props) => {
       <div className="w-[200px]flex flex-col justify-center">
         {flight.dep_iata && (
           <>
-            <ViewAirportDetailsButton
+            <RouteButton
+              type="airport"
               iataCode={flight.dep_iata}
               text="View Departure airport details"
             />
-            <ViewScheduleButton
+            <RouteButton
+              type="schedule"
               iataCode={flight.dep_iata}
               text="View Departure aiport flight schedule"
             />
@@ -39,11 +40,14 @@ const DelayedFlightCard = ({ flight }: Props) => {
 
         {flight.arr_iata && (
           <>
-            <ViewAirportDetailsButton
+            <RouteButton
+              type="airport"
               iataCode={flight.arr_iata}
               text="View Arrival aiport details"
             />
-            <ViewScheduleButton
+
+            <RouteButton
+              type="schedule"
               iataCode={flight.arr_iata}
               text="View Arrival aiport flight schedule"
             />

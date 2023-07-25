@@ -1,7 +1,7 @@
 'use client';
 import { AirportData } from '@/types/types';
-import { ViewLocationButton } from '../components/ViewLocationButton';
-import { ViewScheduleButton } from '../components/ViewScheduleButton';
+
+import RouteButton from '../components/RouteButton';
 
 type Props = {
   airport: AirportData;
@@ -21,11 +21,17 @@ const AirportCard = ({ airport }: Props) => {
 
       <div className="max-w-[200px] flex flex-col justify-center">
         {airport.lat && airport.lng && (
-          <ViewLocationButton latitude={airport.lat} longitude={airport.lng} />
+          <RouteButton
+            type="location"
+            latitude={airport.lat}
+            longitude={airport.lng}
+            text="View airport location on map"
+          />
         )}
 
         {airport.iata_code && (
-          <ViewScheduleButton
+          <RouteButton
+            type="schedule"
             iataCode={airport.iata_code}
             text="View aiport flight schedule"
           />

@@ -2,9 +2,7 @@
 import { FlightData } from '@/types/types';
 import { UserContext, UserContextType } from '../context/UserContext';
 import { useContext } from 'react';
-import { ViewLocationButton } from '../components/ViewLocationButton';
-import { ViewScheduleButton } from '../components/ViewScheduleButton';
-import { ViewAirportDetailsButton } from '../components/ViewAirportDetailsButton';
+import RouteButton from '../components/RouteButton';
 
 type Props = {
   flight: FlightData;
@@ -36,18 +34,26 @@ const FlightCard = ({ flight }: Props) => {
 
       <div className="w-[200px] flex flex-col justify-center">
         {flight.lat && flight.lng && user && (
-          <ViewLocationButton latitude={flight.lat} longitude={flight.lng} />
+          <RouteButton
+            type="location"
+            latitude={flight.lat}
+            longitude={flight.lng}
+            text="View flight location on map"
+          />
         )}
 
         {user && (
           <>
             {flight.dep_iata && (
               <>
-                <ViewAirportDetailsButton
+                <RouteButton
+                  type="airport"
                   iataCode={flight.dep_iata}
                   text="View Departure aiport details"
                 />
-                <ViewScheduleButton
+
+                <RouteButton
+                  type="schedule"
                   iataCode={flight.dep_iata}
                   text="View Departure aiport flight schedule"
                 />
@@ -56,11 +62,14 @@ const FlightCard = ({ flight }: Props) => {
 
             {flight.arr_iata && (
               <>
-                <ViewAirportDetailsButton
+                <RouteButton
+                  type="airport"
                   iataCode={flight.arr_iata}
-                  text="View Arrival aiport details"
+                  text="View Arrival aiport flight details"
                 />
-                <ViewScheduleButton
+
+                <RouteButton
+                  type="schedule"
                   iataCode={flight.arr_iata}
                   text="View Arrival aiport flight schedule"
                 />
