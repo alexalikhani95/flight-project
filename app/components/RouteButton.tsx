@@ -5,24 +5,38 @@
 import { useRouter } from 'next/navigation';
 
 type Props = {
-  type: 'airport' | 'location' | 'schedule'; // Add more types as needed
+  airport?: boolean;
+  schedule?: boolean;
+  location?: 'airport' | 'flight';
   iataCode?: string;
   latitude?: number;
   longitude?: number;
   text: string;
 };
 
-const RouteButton = ({ type, iataCode, latitude, longitude, text }: Props) => {
+const RouteButton = ({
+  //   type,
+  airport,
+  location,
+  iataCode,
+  latitude,
+  longitude,
+  text,
+  schedule,
+}: Props) => {
   const router = useRouter();
 
   const handleClick = () => {
-    if (type === 'airport') {
+    if (airport) {
       router.push(`/airports/${iataCode}`);
     }
-    if (type === 'location') {
-      router.push(`/map/latitude=${latitude}&longitude=${longitude}`);
+    if (location === 'airport') {
+      router.push(`/airports/map/latitude=${latitude}&longitude=${longitude}`);
     }
-    if (type === 'schedule') {
+    if (location === 'flight') {
+      router.push(`/flights/map/latitude=${latitude}&longitude=${longitude}`);
+    }
+    if (schedule) {
       router.push(`/flights/${iataCode}`);
     }
   };

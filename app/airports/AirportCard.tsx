@@ -22,7 +22,7 @@ const AirportCard = ({ airport }: Props) => {
       <div className="max-w-[200px] flex flex-col justify-center">
         {airport.lat && airport.lng && (
           <RouteButton
-            type="location"
+            location="airport"
             latitude={airport.lat}
             longitude={airport.lng}
             text="View airport location on map"
@@ -31,7 +31,7 @@ const AirportCard = ({ airport }: Props) => {
 
         {airport.iata_code && (
           <RouteButton
-            type="schedule"
+            schedule={true}
             iataCode={airport.iata_code}
             text="View aiport flight schedule"
           />

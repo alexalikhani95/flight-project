@@ -35,7 +35,7 @@ const FlightCard = ({ flight }: Props) => {
       <div className="w-[200px] flex flex-col justify-center">
         {flight.lat && flight.lng && user && (
           <RouteButton
-            type="location"
+            location="flight"
             latitude={flight.lat}
             longitude={flight.lng}
             text="View flight location on map"
@@ -47,13 +47,13 @@ const FlightCard = ({ flight }: Props) => {
             {flight.dep_iata && (
               <>
                 <RouteButton
-                  type="airport"
+                  airport={true}
                   iataCode={flight.dep_iata}
                   text="View Departure aiport details"
                 />
 
                 <RouteButton
-                  type="schedule"
+                  schedule={true}
                   iataCode={flight.dep_iata}
                   text="View Departure aiport flight schedule"
                 />
@@ -63,13 +63,13 @@ const FlightCard = ({ flight }: Props) => {
             {flight.arr_iata && (
               <>
                 <RouteButton
-                  type="airport"
+                  airport={true}
                   iataCode={flight.arr_iata}
                   text="View Arrival aiport flight details"
                 />
 
                 <RouteButton
-                  type="schedule"
+                  schedule={true}
                   iataCode={flight.arr_iata}
                   text="View Arrival aiport flight schedule"
                 />

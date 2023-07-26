@@ -1,5 +1,5 @@
 'use client';
-import Map from '../map';
+import Map from '@/app/components/map';
 
 type Props = {
   params: {
@@ -8,7 +8,6 @@ type Props = {
 };
 
 const MapPage = ({ params }: Props) => {
-  console.log(params);
   const urlString = params.slug;
 
   const decodedUrlString = decodeURIComponent(urlString);
@@ -20,7 +19,7 @@ const MapPage = ({ params }: Props) => {
 
   return (
     <div>
-      <Map latitude={latitude} longitude={longitude} />
+      <Map latitude={latitude} longitude={longitude} flight={false} />
     </div>
   );
 };

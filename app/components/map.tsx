@@ -2,20 +2,24 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
+import Plane from '../../images/plane.png';
+import PlaneLarge from '../../images/plane-large.png';
 
 type Props = {
+  flight: boolean;
   latitude: number;
   longitude: number;
 };
 
-const Map = ({ latitude, longitude }: Props) => {
+const Map = ({ latitude, longitude, flight }: Props) => {
   const position: [number, number] = [latitude, longitude];
 
   const customMarkerIcon = new Icon({
-    iconUrl: '/leaflet/marker-icon.png',
-    iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+    iconUrl: flight ? Plane.src : '/leaflet/marker-icon.png',
+    iconRetinaUrl: flight ? PlaneLarge.src : '/leaflet/marker-icon-2x.png',
     shadowUrl: '/leaflet/marker-shadow.png',
-    iconSize: [25, 41],
+
+    iconSize: flight ? [75, 75] : [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     tooltipAnchor: [16, -28],
@@ -34,7 +38,7 @@ const Map = ({ latitude, longitude }: Props) => {
       />
       <Marker position={position} icon={customMarkerIcon}>
         <Popup>
-          A marker at latitude {position[0]}, longitude {position[1]}.
+          latitude {position[0]}, longitude {position[1]}.
         </Popup>
       </Marker>
     </MapContainer>

@@ -26,12 +26,12 @@ const DelayedFlightCard = ({ flight }: Props) => {
         {flight.dep_iata && (
           <>
             <RouteButton
-              type="airport"
+              airport={true}
               iataCode={flight.dep_iata}
               text="View Departure airport details"
             />
             <RouteButton
-              type="schedule"
+              schedule={true}
               iataCode={flight.dep_iata}
               text="View Departure aiport flight schedule"
             />
@@ -41,13 +41,13 @@ const DelayedFlightCard = ({ flight }: Props) => {
         {flight.arr_iata && (
           <>
             <RouteButton
-              type="airport"
+              airport={true}
               iataCode={flight.arr_iata}
               text="View Arrival aiport details"
             />
 
             <RouteButton
-              type="schedule"
+              schedule={true}
               iataCode={flight.arr_iata}
               text="View Arrival aiport flight schedule"
             />
