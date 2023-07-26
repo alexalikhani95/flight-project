@@ -6,20 +6,21 @@ import Plane from '../../images/plane.png';
 import PlaneLarge from '../../images/plane-large.png';
 
 type Props = {
-  flight: boolean;
+  location: string;
   latitude: number;
   longitude: number;
 };
 
-const Map = ({ latitude, longitude, flight }: Props) => {
+const Map = ({ latitude, longitude, location }: Props) => {
   const position: [number, number] = [latitude, longitude];
 
   const customMarkerIcon = new Icon({
-    iconUrl: flight ? Plane.src : '/leaflet/marker-icon.png',
-    iconRetinaUrl: flight ? PlaneLarge.src : '/leaflet/marker-icon-2x.png',
+    iconUrl: location === 'flight' ? Plane.src : '/leaflet/marker-icon.png',
+    iconRetinaUrl:
+      location === 'flight' ? PlaneLarge.src : '/leaflet/marker-icon-2x.png',
     shadowUrl: '/leaflet/marker-shadow.png',
 
-    iconSize: flight ? [75, 75] : [25, 41],
+    iconSize: location === 'flight' ? [75, 75] : [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     tooltipAnchor: [16, -28],

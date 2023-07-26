@@ -1,8 +1,7 @@
 'use client';
 
-// SingleButton.tsx
-
 import { useRouter } from 'next/navigation';
+import { stringify } from 'querystring';
 
 type Props = {
   airport?: boolean;
@@ -15,7 +14,6 @@ type Props = {
 };
 
 const RouteButton = ({
-  //   type,
   airport,
   location,
   iataCode,
@@ -26,15 +24,17 @@ const RouteButton = ({
 }: Props) => {
   const router = useRouter();
 
+  const queryParams = stringify({ location, latitude, longitude });
+
   const handleClick = () => {
     if (airport) {
       router.push(`/airports/${iataCode}`);
     }
     if (location === 'airport') {
-      router.push(`/airports/map/latitude=${latitude}&longitude=${longitude}`);
+      router.push(`/map?${queryParams}`);
     }
     if (location === 'flight') {
-      router.push(`/flights/map/latitude=${latitude}&longitude=${longitude}`);
+      router.push(`/map?${queryParams}`);
     }
     if (schedule) {
       router.push(`/flights/${iataCode}`);
