@@ -1,4 +1,3 @@
-'use client';
 import { DelayedFlightsData } from '@/types/types';
 import RouteButton from '../components/RouteButton';
 

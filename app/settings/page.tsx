@@ -1,23 +1,13 @@
 'use client';
 
 import { useContext, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
 import ChangeEmailForm from './ChangeEmailForm';
 import ChangePasswordForm from './ChangePasswordForm';
 
-type ChangePasswordData = {
-  newPassword: string;
-};
-
 const Settings = () => {
-  const { changePassword, user } = useContext(UserContext) as UserContextType;
+  const { user } = useContext(UserContext) as UserContextType;
   const [showPasswordUpdatedText, setShowUpdatedText] = useState(false);
-
-  const onSubmit = (data: ChangePasswordData) => {
-    changePassword(data.newPassword);
-    setShowUpdatedText(true);
-  };
 
   useEffect(() => {
     setTimeout(function () {

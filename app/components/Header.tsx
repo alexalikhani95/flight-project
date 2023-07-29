@@ -1,5 +1,3 @@
-'use client';
-
 import { useContext } from 'react';
 import { UserContext, UserContextType } from '../context/UserContext';
 import { useRouter } from 'next/navigation';

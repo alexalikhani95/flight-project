@@ -17,7 +17,7 @@ const fetchSchedule = async (slug: string) => {
   return data;
 };
 
-const Airport = ({ params }: Props) => {
+const AirportFlightSchedule = ({ params }: Props) => {
   const {
     data: schedule,
     isLoading,
@@ -37,4 +37,4 @@ const Airport = ({ params }: Props) => {
   );
 };
 
-export default Airport;
+export default AirportFlightSchedule;

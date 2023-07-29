@@ -1,5 +1,3 @@
-'use client';
-
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext, UserContextType } from '../context/UserContext';
@@ -9,7 +7,7 @@ type ChangePasswordData = {
 };
 
 const ChangePasswordForm = () => {
-  const { changePassword, user } = useContext(UserContext) as UserContextType;
+  const { changePassword } = useContext(UserContext) as UserContextType;
   const {
     register,
     handleSubmit,

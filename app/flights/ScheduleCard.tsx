@@ -1,4 +1,3 @@
-'use client';
 import { scheduleData } from '@/types/types';
 
 type Props = {

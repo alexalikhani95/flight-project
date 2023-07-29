@@ -9,8 +9,6 @@ const MapPage = () => {
   const longitude = parseFloat(searchParams.get('longitude') || '0');
   const location = searchParams.get('location');
 
-  console.log(location);
-
   return (
     <div>
       {latitude && longitude && location && (
