@@ -5,7 +5,7 @@ import Plane from '../../images/plane.png';
 import PlaneLarge from '../../images/plane-large.png';
 
 type Props = {
-  location: string;
+  location: 'flight' | 'airport';
   latitude: number;
   longitude: number;
 };

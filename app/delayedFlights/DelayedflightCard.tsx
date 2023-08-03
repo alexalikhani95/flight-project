@@ -21,35 +21,27 @@ const DelayedFlightCard = ({ flight }: Props) => {
         </p>
       </div>
 
-      <div className="w-[200px]flex flex-col justify-center">
+      <div className="w-[200px] flex flex-col justify-center">
         {flight.dep_iata && (
           <>
-            <RouteButton
-              airport={true}
-              iataCode={flight.dep_iata}
-              text="View Departure airport details"
-            />
-            <RouteButton
-              schedule={true}
-              iataCode={flight.dep_iata}
-              text="View Departure aiport flight schedule"
-            />
+            <RouteButton url={`/airports/${flight.dep_iata}`}>
+              View Departure airport details
+            </RouteButton>
+            <RouteButton url={`/flights/${flight.dep_iata}`}>
+              View Departure aiport flight schedule
+            </RouteButton>
           </>
         )}
 
         {flight.arr_iata && (
           <>
-            <RouteButton
-              airport={true}
-              iataCode={flight.arr_iata}
-              text="View Arrival aiport details"
-            />
+            <RouteButton url={`/airports/${flight.arr_iata}`}>
+              View Arrival aiport details
+            </RouteButton>
 
-            <RouteButton
-              schedule={true}
-              iataCode={flight.arr_iata}
-              text="View Arrival aiport flight schedule"
-            />
+            <RouteButton url={`/flights/${flight.arr_iata}`}>
+              View Arrival aiport flight schedule
+            </RouteButton>
           </>
         )}
       </div>

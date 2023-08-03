@@ -35,44 +35,35 @@ const FlightCard = ({ flight }: Props) => {
       <div className="w-[200px] flex flex-col justify-center">
         {flight.lat && flight.lng && user && (
           <RouteButton
-            location="flight"
-            latitude={flight.lat}
-            longitude={flight.lng}
-            text="View flight location on map"
-          />
+            url={`/map?location=flight&latitude=${flight.lat}&longitude=${flight.lng}`}
+          >
+            View flight location on map
+          </RouteButton>
         )}
 
         {user && (
           <>
             {flight.dep_iata && (
               <>
-                <RouteButton
-                  airport={true}
-                  iataCode={flight.dep_iata}
-                  text="View Departure aiport details"
-                />
+                <RouteButton url={`/airports/${flight.dep_iata}`}>
+                  View Departure airport details
+                </RouteButton>
 
-                <RouteButton
-                  schedule={true}
-                  iataCode={flight.dep_iata}
-                  text="View Departure aiport flight schedule"
-                />
+                <RouteButton url={`/flights/${flight.dep_iata}`}>
+                  View Departure aiport flight schedule
+                </RouteButton>
               </>
             )}
 
             {flight.arr_iata && (
               <>
-                <RouteButton
-                  airport={true}
-                  iataCode={flight.arr_iata}
-                  text="View Arrival aiport flight details"
-                />
+                <RouteButton url={`/airports/${flight.arr_iata}`}>
+                  View Arrival airport flight details{' '}
+                </RouteButton>
 
-                <RouteButton
-                  schedule={true}
-                  iataCode={flight.arr_iata}
-                  text="View Arrival aiport flight schedule"
-                />
+                <RouteButton url={`/flights/${flight.arr_iata}`}>
+                  View Arrival aiport flight schedule
+                </RouteButton>
               </>
             )}
           </>
