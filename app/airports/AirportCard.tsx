@@ -29,7 +29,7 @@ const AirportCard = ({ airport }: Props) => {
 
         {airport.iata_code && (
           <RouteButton url={`/flights/${airport.iata_code}`}>
-            View aiport flight schedule
+            View airport flight schedule
           </RouteButton>
         )}
       </div>

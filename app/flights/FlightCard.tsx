@@ -11,6 +11,8 @@ type Props = {
 const FlightCard = ({ flight }: Props) => {
   const { user } = useContext(UserContext) as UserContextType;
 
+  console.log(user);
+
   return (
     <div className="flex align-center mt-10 shadow-lg max-w-full bg-white p-5">
       <div className="flex flex-col mr-5">
@@ -50,7 +52,7 @@ const FlightCard = ({ flight }: Props) => {
                 </RouteButton>
 
                 <RouteButton url={`/flights/${flight.dep_iata}`}>
-                  View Departure aiport flight schedule
+                  View Departure airport flight schedule
                 </RouteButton>
               </>
             )}
@@ -58,11 +60,11 @@ const FlightCard = ({ flight }: Props) => {
             {flight.arr_iata && (
               <>
                 <RouteButton url={`/airports/${flight.arr_iata}`}>
-                  View Arrival airport flight details{' '}
+                  View Arrival airport flight details
                 </RouteButton>
 
                 <RouteButton url={`/flights/${flight.arr_iata}`}>
-                  View Arrival aiport flight schedule
+                  View Arrival airport flight schedule
                 </RouteButton>
               </>
             )}
