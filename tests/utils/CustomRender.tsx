@@ -2,6 +2,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 
 import { UserContext, UserContextType } from '@/app/context/UserContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient();
 
 const Wrapper = ({
   children,
@@ -11,20 +13,22 @@ const Wrapper = ({
   customContext?: Partial<UserContextType>;
 }) => {
   return (
-    <UserContext.Provider
-      value={{
-        user: null,
-        createUser: () => Promise.resolve(),
-        logout: () => Promise.resolve(),
-        signIn: () => Promise.resolve(),
-        changePassword: () => Promise.resolve(),
-        changeEmail: () => Promise.resolve(),
-        signInAsGuest: () => Promise.resolve(),
-        ...customContext,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <UserContext.Provider
+        value={{
+          user: null,
+          createUser: () => Promise.resolve(),
+          logout: () => Promise.resolve(),
+          signIn: () => Promise.resolve(),
+          changePassword: () => Promise.resolve(),
+          changeEmail: () => Promise.resolve(),
+          signInAsGuest: () => Promise.resolve(),
+          ...customContext,
+        }}
+      >
+        {children}
+      </UserContext.Provider>
+    </QueryClientProvider>
   );
 };
 

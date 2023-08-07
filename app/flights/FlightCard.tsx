@@ -11,8 +11,6 @@ type Props = {
 const FlightCard = ({ flight }: Props) => {
   const { user } = useContext(UserContext) as UserContextType;
 
-  console.log(user);
-
   return (
     <div className="flex align-center mt-10 shadow-lg max-w-full bg-white p-5">
       <div className="flex flex-col mr-5">
