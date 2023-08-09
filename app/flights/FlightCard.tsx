@@ -35,7 +35,7 @@ const FlightCard = ({ flight }: Props) => {
       <div className="w-[200px] flex flex-col justify-center">
         {flight.lat && flight.lng && user && (
           <RouteButton
-            url={`/map?location=flight&latitude=${flight.lat}&longitude=${flight.lng}`}
+            url={`/flights/map?&latitude=${flight.lat}&longitude=${flight.lng}`}
           >
             View flight location on map
           </RouteButton>

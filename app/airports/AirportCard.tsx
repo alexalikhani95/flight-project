@@ -21,7 +21,7 @@ const AirportCard = ({ airport }: Props) => {
       <div className="max-w-[200px] flex flex-col justify-center">
         {airport.lat && airport.lng && (
           <RouteButton
-            url={`/map?location=airport&latitude=${airport.lat}&longitude=${airport.lng}`}
+            url={`/airports/map/?latitude=${airport.lat}&longitude=${airport.lng}`}
           >
             View airport location on map
           </RouteButton>

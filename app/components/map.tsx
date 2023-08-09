@@ -3,23 +3,28 @@ import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import Plane from '../../images/plane.png';
 import PlaneLarge from '../../images/plane-large.png';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
-  location: 'flight' | 'airport';
-  latitude: number;
-  longitude: number;
+  mapType: 'flight' | 'airport';
 };
 
-const Map = ({ latitude, longitude, location }: Props) => {
+const Map = ({ mapType }: Props) => {
+  const searchParams = useSearchParams();
+
+  const latitude = parseFloat(searchParams.get('latitude') || '0');
+
+  const longitude = parseFloat(searchParams.get('longitude') || '0');
+
   const position: [number, number] = [latitude, longitude];
 
   const customMarkerIcon = new Icon({
-    iconUrl: location === 'flight' ? Plane.src : '/leaflet/marker-icon.png',
+    iconUrl: mapType === 'flight' ? Plane.src : '/leaflet/marker-icon.png',
     iconRetinaUrl:
-      location === 'flight' ? PlaneLarge.src : '/leaflet/marker-icon-2x.png',
+      mapType === 'flight' ? PlaneLarge.src : '/leaflet/marker-icon-2x.png',
     shadowUrl: '/leaflet/marker-shadow.png',
 
-    iconSize: location === 'flight' ? [75, 75] : [25, 41],
+    iconSize: mapType === 'flight' ? [75, 75] : [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     tooltipAnchor: [16, -28],
