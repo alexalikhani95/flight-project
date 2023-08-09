@@ -1,7 +1,7 @@
 import AuthForm from '@/app/auth/AuthForm';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { render } from './utils/CustomRender';
+import { render } from '../utils/CustomRender';
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({

@@ -15,15 +15,15 @@ const Settings = () => {
     }, 3000);
   }, [showPasswordUpdatedText]);
 
-  if (user?.email === 'guest@gmail.com') {
-    return;
-  }
-
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-3xl font-bold">Settings</h1>
-      <ChangePasswordForm />
-      <ChangeEmailForm />
+      {user?.email !== 'guest@gmail.com' && (
+        <>
+          <ChangePasswordForm />
+          <ChangeEmailForm />
+        </>
+      )}
     </div>
   );
 };

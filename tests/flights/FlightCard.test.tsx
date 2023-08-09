@@ -2,42 +2,8 @@ import { screen } from '@testing-library/react';
 import { render } from '../utils/CustomRender';
 import { fakeFlights } from '@/mocks/mockData';
 import FlightCard from '@/app/flights/FlightCard';
-import { IdTokenResult, User } from 'firebase/auth';
-
-const mockUser: User = {
-  uid: 'mockUserId',
-  email: 'mockuser@example.com',
-  displayName: 'Mock User',
-  emailVerified: true,
-  isAnonymous: false,
-  metadata: {
-    creationTime: 'mockCreationTime',
-    lastSignInTime: 'mockLastSignInTime',
-  },
-  providerData: [],
-  refreshToken: '',
-  tenantId: null,
-  delete: function (): Promise<void> {
-    throw new Error('Function not implemented.');
-  },
-  getIdToken: function (forceRefresh?: boolean | undefined): Promise<string> {
-    throw new Error('Function not implemented.');
-  },
-  getIdTokenResult: function (
-    forceRefresh?: boolean | undefined
-  ): Promise<IdTokenResult> {
-    throw new Error('Function not implemented.');
-  },
-  reload: function (): Promise<void> {
-    throw new Error('Function not implemented.');
-  },
-  toJSON: function (): object {
-    throw new Error('Function not implemented.');
-  },
-  phoneNumber: null,
-  photoURL: null,
-  providerId: '',
-};
+import { mockUser } from '../mocks/mocks';
+mockUser;
 
 test('FlightCard renders with the correct text and buttons when a user is signed in', () => {
   render(<FlightCard flight={fakeFlights.data[0]} />, {
