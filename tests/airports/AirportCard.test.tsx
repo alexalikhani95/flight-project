@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { render } from './utils/CustomRender';
+import { render } from '../utils/CustomRender';
 import AirportCard from '@/app/airports/AirportCard';
 import { fakeAirport } from '@/mocks/mockData';
 

@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { render } from './utils/CustomRender';
+import { render } from '../utils/CustomRender';
 import { fakeFlights } from '@/mocks/mockData';
 import FlightCard from '@/app/flights/FlightCard';
 import { IdTokenResult, User } from 'firebase/auth';
