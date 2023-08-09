@@ -9,7 +9,9 @@ import DelayedFlightCard from './DelayedflightCard';
 
 const DelayedFlights = () => {
   const fetchDelayedFlights = async () => {
-    const { data } = await axios.get('/api/delays');
+    const { data } = await axios.get<{ data: DelayedFlightsData[] }>(
+      '/api/delays'
+    );
     return data;
   };
 
@@ -36,11 +38,10 @@ const DelayedFlights = () => {
 
   useEffect(() => {
     if (delayedFlights) {
-      const filtered = delayedFlights.data.filter(
-        (flight: DelayedFlightsData) =>
-          flight.flight_number
-            ?.toLowerCase()
-            .includes(debouncedSearchInput.toLowerCase())
+      const filtered = delayedFlights.data.filter((flight) =>
+        flight.flight_number
+          ?.toLowerCase()
+          .includes(debouncedSearchInput.toLowerCase())
       );
       setFilteredFlights(filtered);
       setFinishedSearch(true);
@@ -58,7 +59,7 @@ const DelayedFlights = () => {
         className="mt-4 p-2 border border-gray-300 rounded min-w-[300px]"
       />
       {isLoading && <p>Loading flights...</p>}
-      {delayedFlights?.length === 0 && (
+      {delayedFlights?.data.length === 0 && (
         <p>No delayed flights found, please try again.</p>
       )}
       {isError && <p>Error, please try again later</p>}

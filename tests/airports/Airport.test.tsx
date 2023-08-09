@@ -29,28 +29,25 @@ test('The component renders displaying the correct text and airport when there i
   server.close();
 });
 
-// test('AirportCard renders correctly with empty data', async () => {
-//   const server = setupServer(
-//     rest.get('/api/airports', (req, res, ctx) => {
-//       console.log(res(ctx.json({ data: [] })));
-//       return res(ctx.json({ data: [] }));
-//     })
-//   );
+test('Component renders correctly with empty data', async () => {
+  const server = setupServer(
+    rest.get('/api/airports', (req, res, ctx) => {
+      return res(ctx.json({ data: [] }));
+    })
+  );
 
-//   server.listen();
+  server.listen();
 
-//   render(<Airports />);
+  render(<Airports />);
 
-//   expect(screen.getByText('Airports')).toBeInTheDocument();
+  expect(screen.getByText('Airports')).toBeInTheDocument();
 
-//   await waitFor(() => {
-//     expect(
-//       screen.getByText('No airports found, please try again.')
-//     ).toBeInTheDocument();
-//   });
+  await waitFor(() => {
+    expect(
+      screen.getByText('No airports found, please try again.')
+    ).toBeInTheDocument();
+  });
 
-//   screen.logTestingPlaygroundURL();
-
-//   server.resetHandlers();
-//   server.close();
-// });
+  server.resetHandlers();
+  server.close();
+});

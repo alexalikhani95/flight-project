@@ -8,7 +8,7 @@ import { useDebounce } from 'use-debounce';
 import AirportCard from './AirportCard';
 
 const fetchAirports = async () => {
-  const { data } = await axios.get('/api/airports');
+  const { data } = await axios.get<{ data: AirportData[] }>('/api/airports');
   return data;
 };
 
@@ -17,6 +17,7 @@ const Airports = () => {
     data: airports,
     isLoading,
     isError,
+    error,
   } = useQuery(['airports'], fetchAirports);
 
   const [searchInput, setSearchInput] = useState('');
@@ -35,7 +36,7 @@ const Airports = () => {
 
   useEffect(() => {
     if (airports) {
-      const filtered = airports.data.filter((airport: AirportData) =>
+      const filtered = airports.data.filter((airport) =>
         airport.name?.toLowerCase().includes(debouncedSearchInput.toLowerCase())
       );
       setFilteredAirports(filtered);
@@ -54,7 +55,9 @@ const Airports = () => {
         className="mt-4 p-2 border border-gray-300 rounded min-w-[300px]"
       />
       {isLoading && <p>Loading airports...</p>}
-      {airports?.length === 0 && <p>No airports found, please try again.</p>}
+      {airports?.data.length === 0 && (
+        <p>No airports found, please try again.</p>
+      )}
       {isError && <p>Error, please try again later</p>}
       {filteredAirports.length < 1 && searchInput !== '' && finishedSearch && (
         <p className="mt-2 text-red-500">

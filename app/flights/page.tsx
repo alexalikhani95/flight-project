@@ -9,7 +9,7 @@ import FlightCard from './FlightCard';
 
 const Flights = () => {
   const fetchFlights = async () => {
-    const { data } = await axios.get('/api/flights');
+    const { data } = await axios.get<{ data: FlightData[] }>('/api/flights');
     return data;
   };
 
@@ -34,7 +34,7 @@ const Flights = () => {
 
   useEffect(() => {
     if (flights) {
-      const filtered = flights.data.filter((flight: FlightData) =>
+      const filtered = flights.data.filter((flight) =>
         flight.flight_number
           ?.toLowerCase()
           .includes(debouncedSearchInput.toLowerCase())
@@ -55,7 +55,7 @@ const Flights = () => {
         className="mt-4 p-2 border border-gray-300 rounded min-w-[300px]"
       />
       {isLoading && <p>Loading flights...</p>}
-      {flights?.length === 0 && <p>No flights found, please try again.</p>}
+      {flights?.data.length === 0 && <p>No flights found, please try again.</p>}
       {isError && <p>Error, please try again later</p>}
       {filteredFlights.length < 1 && searchInput !== '' && finishedSearch && (
         <p className="mt-2 text-red-500">
