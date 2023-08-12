@@ -12,6 +12,7 @@ import {
   updatePassword,
   updateEmail,
   signInAnonymously,
+  deleteUser,
 } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -29,6 +30,7 @@ export type UserContextType = {
   signInAsGuest: () => Promise<any>;
   changePassword: (password: string) => Promise<any>;
   changeEmail: (email: string) => Promise<any>;
+  deleteAccount: () => Promise<any>;
 };
 
 type UserContextProviderProps = {
@@ -53,6 +55,12 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     updateProfile(auth.currentUser!, {
       displayName: username,
     });
+  };
+
+  const deleteAccount = () => {
+    if (user) {
+      return deleteUser(user);
+    }
   };
 
   const signIn = (email: string, password: string) => {
@@ -130,6 +138,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         signInAsGuest,
         changePassword,
         changeEmail,
+        deleteAccount,
       }}
     >
       {children}
