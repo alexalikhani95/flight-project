@@ -1,33 +1,12 @@
-// describe('Login', () => {
-//   it('The user signs up and gets taken to the dashboard upon completion', () => {
-//     cy.visit('/');
-
-//     cy.contains('Signup').click();
-
-//     cy.url().should('include', '/auth/signup');
-
-//     cy.contains('Username').type('fake');
-//     cy.contains('Email').type('fake@email.com');
-//     cy.contains('Password').type('testpassword');
-
-//     cy.contains('Submit');
-
-//     cy.url().should('include', '/dashboard');
-//   });
-// });
-
-describe('Login as guest', () => {
-  it('The user logs in as a guest and gets taken to the dashboard upon completion', () => {
-    cy.visit('/');
-
-    cy.contains('Login').click();
-
-    cy.url().should('include', '/auth/login');
-
-    cy.contains('Sign in as a guest').click();
-
+describe('Signup, login, delete account', () => {
+  it('The user signs up and gets taken to the dashboard, then logs out and can login. Then go to the settings page to delete the account', () => {
+    cy.signup('test-username', 'test1234@gmail.com', 'testpassword');
     cy.url().should('include', '/dashboard');
 
     cy.contains('Logout').click();
+    cy.login('test1234@gmail.com', 'testpassword');
+
+    cy.url().should('include', '/dashboard');
+    cy.deleteUser();
   });
 });
