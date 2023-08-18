@@ -1,5 +1,5 @@
 describe('Dashboard flow', () => {
-  it('The user logs in as a guest and gets taken to the dashboard upon completion', () => {
+  it('The user clicks on the different buttons in the dashboard card and gets taken to the correct locations', () => {
     cy.visit('/');
     cy.contains('Login').click();
 

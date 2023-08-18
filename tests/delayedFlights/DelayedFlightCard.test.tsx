@@ -23,13 +23,7 @@ test('DelayedFlightCard renders with the correct text', () => {
   expect(
     screen.getByText('View Departure airport details')
   ).toBeInTheDocument();
-  expect(
-    screen.getByText('View Departure airport flight schedule')
-  ).toBeInTheDocument();
   expect(screen.getByText('View Arrival airport details')).toBeInTheDocument();
-  expect(
-    screen.getByText('View Arrival airport flight schedule')
-  ).toBeInTheDocument();
 });
 
 test('The View Arrival/Departure airport details/schedule buttons should not render when the arr_iata and dep_iata values are null', () => {
@@ -80,12 +74,6 @@ test('The View Arrival/Departure airport details/schedule buttons should not ren
     screen.queryByText('View Departure airport details')
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByText('View Departure airport flight schedule')
-  ).not.toBeInTheDocument();
-  expect(
     screen.queryByText('View Arrival airport details')
-  ).not.toBeInTheDocument();
-  expect(
-    screen.queryByText('View Arrival airport flight schedule')
   ).not.toBeInTheDocument();
 });

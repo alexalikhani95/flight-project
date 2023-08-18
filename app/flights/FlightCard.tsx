@@ -35,7 +35,7 @@ const FlightCard = ({ flight }: Props) => {
       <div className="w-[200px] flex flex-col justify-center">
         {flight.lat && flight.lng && user && (
           <RouteButton
-            url={`/flights/map?&latitude=${flight.lat}&longitude=${flight.lng}`}
+            url={`/flights/map?latitude=${flight.lat}&longitude=${flight.lng}`}
           >
             View flight location on map
           </RouteButton>
@@ -44,27 +44,15 @@ const FlightCard = ({ flight }: Props) => {
         {user && (
           <>
             {flight.dep_iata && (
-              <>
-                <RouteButton url={`/airports/${flight.dep_iata}`}>
-                  View Departure airport details
-                </RouteButton>
-
-                <RouteButton url={`/flights/${flight.dep_iata}`}>
-                  View Departure airport flight schedule
-                </RouteButton>
-              </>
+              <RouteButton url={`/airports/${flight.dep_iata}`}>
+                View Departure airport details
+              </RouteButton>
             )}
 
             {flight.arr_iata && (
-              <>
-                <RouteButton url={`/airports/${flight.arr_iata}`}>
-                  View Arrival airport flight details
-                </RouteButton>
-
-                <RouteButton url={`/flights/${flight.arr_iata}`}>
-                  View Arrival airport flight schedule
-                </RouteButton>
-              </>
+              <RouteButton url={`/airports/${flight.arr_iata}`}>
+                View Arrival airport details
+              </RouteButton>
             )}
           </>
         )}
