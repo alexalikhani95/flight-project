@@ -19,7 +19,7 @@ const Settings = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-3xl font-bold">Settings</h1>
-      {user?.email !== 'guest@gmail.com' && (
+      {user && user?.email !== 'guest@gmail.com' && (
         <>
           <ChangePasswordForm />
           <ChangeEmailForm />
@@ -37,7 +37,7 @@ const Settings = () => {
                 </p>
                 <button
                   className="bg-red-700 hover:bg-red-500 text-white font-bold rounded p-2 mt-5 w-full"
-                  onClick={deleteAccount}
+                  onClick={() => deleteAccount(user)}
                 >
                   Click to Delete Account
                 </button>

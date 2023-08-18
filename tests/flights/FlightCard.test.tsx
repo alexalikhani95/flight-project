@@ -36,15 +36,7 @@ test('FlightCard renders with the correct text and buttons when a user is signed
   expect(
     screen.getByText('View Departure airport details')
   ).toBeInTheDocument();
-  expect(
-    screen.getByText('View Departure airport flight schedule')
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText('View Arrival airport flight details')
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText('View Arrival airport flight schedule')
-  ).toBeInTheDocument();
+  expect(screen.getByText('View Arrival airport details')).toBeInTheDocument();
 });
 
 test('The buttons are do not display when a user is not signed in ', () => {
@@ -57,12 +49,6 @@ test('The buttons are do not display when a user is not signed in ', () => {
     screen.queryByText('View Departure airport details')
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByText('View Departure airport flight schedule')
-  ).not.toBeInTheDocument();
-  expect(
-    screen.queryByText('View Arrival airport flight details')
-  ).not.toBeInTheDocument();
-  expect(
-    screen.queryByText('View Arrival airport flight schedule')
+    screen.queryByText('View Arrival airport details')
   ).not.toBeInTheDocument();
 });

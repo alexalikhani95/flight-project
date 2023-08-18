@@ -30,7 +30,7 @@ export type UserContextType = {
   signInAsGuest: () => Promise<any>;
   changePassword: (password: string) => Promise<any>;
   changeEmail: (email: string) => Promise<any>;
-  deleteAccount: () => Promise<any>;
+  deleteAccount: (user: User) => Promise<any>;
 };
 
 type UserContextProviderProps = {
@@ -57,10 +57,8 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     });
   };
 
-  const deleteAccount = () => {
-    if (user) {
-      return deleteUser(user);
-    }
+  const deleteAccount = (user: User) => {
+    return deleteUser(user);
   };
 
   const signIn = (email: string, password: string) => {
