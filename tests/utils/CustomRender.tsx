@@ -23,6 +23,7 @@ const Wrapper = ({
           changePassword: () => Promise.resolve(),
           changeEmail: () => Promise.resolve(),
           signInAsGuest: () => Promise.resolve(),
+          deleteAccount: () => Promise.resolve(),
           ...customContext,
         }}
       >
