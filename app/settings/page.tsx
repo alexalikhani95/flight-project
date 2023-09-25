@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext, UserContextType } from '../context/UserContext';
 import ChangeEmailForm from './ChangeEmailForm';
 import ChangePasswordForm from './ChangePasswordForm';
+import LocationForm from './LocationForm';
+import AgeForm from './AgeForm';
 
 const Settings = () => {
   const { user, deleteAccount } = useContext(UserContext) as UserContextType;
@@ -21,6 +23,8 @@ const Settings = () => {
       <h1 className="text-3xl font-bold">Settings</h1>
       {user && user?.email !== 'guest@gmail.com' && (
         <>
+        <AgeForm />
+        <LocationForm />
           <ChangePasswordForm />
           <ChangeEmailForm />
           <div className="flex flex-col items-center mt-5">
