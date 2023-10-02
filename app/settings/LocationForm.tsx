@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { httpsCallable } from 'firebase/functions';
 import {functions} from '../firebase';
-
 
 type LocationData = {
   location: string;
@@ -18,7 +17,6 @@ const LocationForm = () => {
   } = useForm<LocationData>();
   const [showEmailUpdatedText, setShowEmailUpdatedText] = useState(false);
 
-  
   const onSubmit = (data: LocationData) =>{ 
     const { location } = data;
     console.log(location)
@@ -34,7 +32,9 @@ const LocationForm = () => {
       });
     })
 }
+
   
+
   useEffect(() => {
     setTimeout(function () {
       setShowEmailUpdatedText(false);
@@ -44,11 +44,11 @@ const LocationForm = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mt-10 text-center">
-        <p className="font-bold">Add Location</p>
+        <p className="font-bold">Add location</p>
         <form onSubmit={handleSubmit(onSubmit)} className="p-5 bg-white">
           <div className="mb-5">
             <label htmlFor="email" className="flex flex-col items-center">
-              Location
+              location
               <input
                 type="text"
                 id="change-email"
@@ -59,7 +59,7 @@ const LocationForm = () => {
             {errors.location && (
               <p className="text-red-500 mt-1">{errors.location.message}</p>
             )}
-            {showEmailUpdatedText && <p>Email Updated!</p>}
+            {showEmailUpdatedText && <p>Location Updated!</p>}
           </div>
 
           <div>

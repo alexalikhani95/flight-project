@@ -18,7 +18,6 @@ const AgeForm = () => {
   const [showEmailUpdatedText, setShowEmailUpdatedText] = useState(false);
 
   const onSubmit = (data: AgeData) =>{ 
-    console.log('submit 1')
     const { age } = data;
     console.log(age)
     const addAge = httpsCallable(functions, 'addAge');
