@@ -19,7 +19,6 @@ const LocationForm = () => {
 
   const onSubmit = (data: LocationData) =>{ 
     const { location } = data;
-    console.log(location)
     const addLocation = httpsCallable(functions, 'addLocation');
     addLocation({text: location}).then(() => {
       setShowEmailUpdatedText(true);

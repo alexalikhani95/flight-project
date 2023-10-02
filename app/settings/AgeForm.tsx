@@ -19,7 +19,6 @@ const AgeForm = () => {
 
   const onSubmit = (data: AgeData) =>{ 
     const { age } = data;
-    console.log(age)
     const addAge = httpsCallable(functions, 'addAge');
     addAge({text: age}).then(() => {
       setShowEmailUpdatedText(true);
