@@ -31,9 +31,6 @@ const LocationForm = () => {
       });
     })
 }
-
-  
-
   useEffect(() => {
     setTimeout(function () {
       setShowEmailUpdatedText(false);

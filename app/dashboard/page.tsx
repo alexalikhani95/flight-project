@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { UserContext, UserContextType } from '../context/UserContext';
 import {db} from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 type userType = {
   email: string;
@@ -18,22 +18,25 @@ const Dashboard = () => {
 
   const [userInfo, setUserInfo] = useState<userType | null>(null);
 
-  const getUserInfo = useCallback(async () => {
-    const usersSnapshot = await getDocs(collection(db, 'users'));
-    const usersArray: userType[] = usersSnapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data() } as userType));
   
-    const userData = usersArray.filter(filteredUser => filteredUser.email === user?.email);
-    setUserInfo(userData.length > 0 ? userData[0] : null);
+  
+  const getUserInfo = useCallback(async () => {
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("email", "==", user?.email));
 
-  }, [user?.email]);
+    const querySnapshot = await getDocs(q);
+
+    const usersArray: userType[] = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() } as userType));
+      
+      setUserInfo(usersArray.length > 0 ? usersArray[0] : null);
+
+  }, [user?.email])
   
 
   useEffect(() => {
     getUserInfo()
   },[getUserInfo])
-
-  console.log(userInfo)
   
   return (
     <div className="flex items-center flex-col">
