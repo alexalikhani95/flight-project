@@ -11,6 +11,7 @@ type User = {
   id?: string;
   age?: string;
   location?: string;
+  visitedAirports?: string[];
 }
 
 const Dashboard = () => {
@@ -35,21 +36,28 @@ const Dashboard = () => {
       <h2 className='text-3xl font-bold"'>Welcome {user?.displayName}</h2>
       {userData && userData.age && <h3>Age: {userData.age}</h3>}
       {userData && userData.location && <h3>Location: {userData.location}</h3>}
+    <div className='flex flex-wrap justify-evenly max-w-[900px]'>
       <Link href="/airports">
-        <button className="mt-10 bg-white p-5 border-2 border-blue-950">
+        <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
           Airports
         </button>
       </Link>
       <Link href="/flights">
-        <button className="mt-10 bg-white p-5 border-2 border-blue-950">
+        <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
           All Flights
         </button>
       </Link>
       <Link href="/delayedFlights">
-        <button className="mt-10 bg-white p-5 border-2 border-blue-950">
+        <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
           Delayed Flights
         </button>
       </Link>
+      <Link href="/visitedAirports">
+        <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
+          My Visited Airports
+        </button>
+      </Link>
+      </div>
     </div>
   );
 };
