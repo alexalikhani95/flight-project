@@ -37,11 +37,11 @@ const Dashboard = () => {
   return (
     <div className="flex items-center flex-col">
       <h2 className='text-3xl font-bold"'>Welcome {user?.displayName}</h2>
-      <div className='h-[50px]'>
+      <div className='h-[50px] mt-5 mb-5'>
         {!isLoading && 
         <>
-      <h3>Age: {userData && userData.age ? userData.age : 'Go to settings to add age'}</h3>
-      <h3>Location: {userData && userData.location ? userData.location : 'Go to settings to add location'}</h3>
+      <div className='flex'><p className='font-bold mr-2'>Age:</p><p>{userData && userData.age ? userData.age : 'Go to settings to add age'}</p></div>
+      <div className='flex'><p className='font-bold mr-2'>Location:</p><p>{userData && userData.location ? userData.location : 'Go to settings to add location'}</p></div>
       </>
         }
       {isLoading && <p>Loading age and location...</p>}
