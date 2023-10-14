@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { httpsCallable } from 'firebase/functions';
-import {functions} from '../firebase';
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebase";
 
 type LocationData = {
   location: string;
@@ -16,21 +16,25 @@ const LocationForm = () => {
     formState: { errors },
   } = useForm<LocationData>();
   const [showEmailUpdatedText, setShowEmailUpdatedText] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  const onSubmit = (data: LocationData) =>{ 
+  const onSubmit = (data: LocationData) => {
     const { location } = data;
-    const addLocation = httpsCallable(functions, 'addLocation');
-    addLocation({text: location}).then(() => {
-      setShowEmailUpdatedText(true);
-      reset()
-    })
-    .catch((error) => {
-      setError('location', {
-        type: 'manual',
-        message: error.message,
+    const addLocation = httpsCallable(functions, "addLocation");
+    addLocation({ text: location })
+      .then(() => {
+        setShowEmailUpdatedText(true);
+        reset();
+        setIsUpdating(false);
+      })
+      .catch((error) => {
+        setError("location", {
+          type: "manual",
+          message: error.message,
+        });
+        setIsUpdating(false);
       });
-    })
-}
+  };
   useEffect(() => {
     setTimeout(function () {
       setShowEmailUpdatedText(false);
@@ -48,13 +52,14 @@ const LocationForm = () => {
               <input
                 type="text"
                 id="change-email"
-                {...register('location', { required: true })}
+                {...register("location", { required: true })}
                 className="shadow border rounded py-2 px-3 ml-2"
               />
             </label>
             {errors.location && (
               <p className="text-red-500 mt-1">{errors.location.message}</p>
             )}
+            {isUpdating && <p>Updating Location...</p>}
             {showEmailUpdatedText && <p>Location Updated!</p>}
           </div>
 

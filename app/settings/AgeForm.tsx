@@ -16,29 +16,32 @@ const AgeForm = () => {
     formState: { errors },
   } = useForm<AgeData>();
   const [showEmailUpdatedText, setShowEmailUpdatedText] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const onSubmit = (data: AgeData) =>{ 
+    setIsUpdating(true);
     const { age } = data;
     const addAge = httpsCallable(functions, 'addAge');
     addAge({text: age}).then(() => {
       setShowEmailUpdatedText(true);
       reset()
+      setIsUpdating(false)
     })
     .catch((error) => {
       setError('age', {
         type: 'manual',
         message: error.message,
       });
+      setIsUpdating(false)
     })
-}
-
-  
+} 
 
   useEffect(() => {
     setTimeout(function () {
       setShowEmailUpdatedText(false);
     }, 3000);
   }, [showEmailUpdatedText]);
+
 
   return (
     <div className="flex flex-col items-center">
@@ -58,6 +61,7 @@ const AgeForm = () => {
             {errors.age && (
               <p className="text-red-500 mt-1">{errors.age.message}</p>
             )}
+            {isUpdating && <p>Updating Age...</p>}
             {showEmailUpdatedText && <p>Age Updated!</p>}
           </div>
 
