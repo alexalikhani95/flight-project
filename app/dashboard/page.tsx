@@ -40,8 +40,8 @@ const Dashboard = () => {
       <div className='h-[50px]'>
         {!isLoading && 
         <>
-      <h3>Age: {userData && userData.age && userData.age}</h3>
-      <h3>Location: {userData && userData.location && userData.location}</h3>
+      <h3>Age: {userData && userData.age ? userData.age : 'Go to settings to add age'}</h3>
+      <h3>Location: {userData && userData.location ? userData.location : 'Go to settings to add location'}</h3>
       </>
         }
       {isLoading && <p>Loading age and location...</p>}
