@@ -2,6 +2,8 @@ import { AirportData } from '@/types/types';
 import RouteButton from '../components/RouteButton';
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
+import { useContext } from 'react';
+import { UserContext, UserContextType } from '../context/UserContext';
 
 type Props = {
   airport: AirportData;
@@ -11,6 +13,8 @@ const addVisitedAirport = httpsCallable(functions, 'addVisitedAirport');
 
 
 const AirportCard = ({ airport }: Props) => {
+  const { user } = useContext(UserContext) as UserContextType;
+
   return (
     <div className="flex align-center mt-10 shadow-lg max-w-full bg-white p-5">
       <div className="flex flex-col mr-5">
@@ -36,11 +40,11 @@ const AirportCard = ({ airport }: Props) => {
             View airport flight schedule
           </RouteButton>
         )}
-        <button
+      {!user?.isAnonymous && <button
         className="px-5 py-2.5 font-medium bg-blue-500 hover:bg-blue-700 text-white rounded-lg text-sm mb-3 w-full"
          onClick={() => addVisitedAirport({text: airport.name})}>
           Add airport to visited list
-          </button>
+          </button> }
       </div>
     </div>
   );

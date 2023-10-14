@@ -37,6 +37,7 @@ const Dashboard = () => {
   return (
     <div className="flex items-center flex-col">
       <h2 className='text-3xl font-bold"'>Welcome {user?.displayName}</h2>
+      {!user?.isAnonymous &&
       <div className='h-[50px] mt-5 mb-5'>
         {!isLoading && 
         <>
@@ -46,6 +47,7 @@ const Dashboard = () => {
         }
       {isLoading && <p>Loading age and location...</p>}
       </div>
+}
     <div className='flex flex-wrap justify-evenly max-w-[900px]'>
       <Link href="/airports">
         <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
@@ -62,11 +64,13 @@ const Dashboard = () => {
           Delayed Flights
         </button>
       </Link>
+      {!user?.isAnonymous &&
       <Link href="/visitedAirports">
         <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
           My Visited Airports
         </button>
       </Link>
+      }
       </div>
     </div>
   );

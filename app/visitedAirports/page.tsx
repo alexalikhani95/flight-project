@@ -25,8 +25,6 @@ const VisitedAirports = () => {
     setUserData(docSnap.data() as User);
   }, [user?.uid]);
 
-  console.log(userData?.visitedAirports);
-
   useEffect(() => {
     getUser();
   }, [getUser]);
