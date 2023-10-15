@@ -17,6 +17,8 @@ import {
 import { useRouter, usePathname } from 'next/navigation';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { nonAuthenticatedRoutes, restrictedGuestRoutes } from '@/routes/routes';
+import {db} from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 export type UserContextType = {
   user: User | null;
@@ -31,17 +33,34 @@ export type UserContextType = {
   changePassword: (password: string) => Promise<any>;
   changeEmail: (email: string) => Promise<any>;
   deleteAccount: (user: User) => Promise<any>;
+  userData: UserData | null;
 };
 
 type UserContextProviderProps = {
   children: React.ReactNode;
 };
 
+type UserData = {
+  email: string;
+  id?: string;
+  age?: string;
+  location?: string;
+  visitedAirports?: string[];
+}
+
 export const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+
+  const getUserData = async (uid: string) => {
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+    setUserData(docSnap.data() as UserData | null);
+  };
 
   const router = useRouter();
   const pathname = usePathname();
@@ -93,7 +112,6 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         localStorage.removeItem('user');
       }
 
-      setIsCheckingAuth(false);
     });
 
     // Get user data from localStorage on page load
@@ -106,6 +124,13 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getUserData(user.uid);
+      setIsCheckingAuth(false); 
+    }
+  }, [user]);
 
   useEffect(() => {
     if (
@@ -131,6 +156,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       value={{
         createUser,
         user,
+        userData,
         logout,
         signIn,
         signInAsGuest,
