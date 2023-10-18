@@ -1,38 +1,21 @@
 "use client";
 
-import { doc, getDoc } from "firebase/firestore";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext, UserContextType } from "../context/UserContext";
-import { db } from "../firebase";
-
-type User = {
-  email: string;
-  id?: string;
-  age?: string;
-  location?: string;
-  visitedAirports?: string[];
-};
 
 const VisitedAirports = () => {
-  const { user } = useContext(UserContext) as UserContextType;
-
-  const [userData, setUserData] = useState<User | null>(null);
-
-  const getUser = useCallback(async () => {
-    const docRef = doc(db, "users", user?.uid as string);
-    const docSnap = await getDoc(docRef);
-
-    setUserData(docSnap.data() as User);
-  }, [user?.uid]);
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
+  const { userData } = useContext(UserContext) as UserContextType;
 
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl font-bold">My Visited Airports</h2>
       <div className="flex flex-col mt-10 font-bold">
+        {!userData?.visitedAirports && (
+          <p>
+            You have not added any visited airports yet. To add an Airport, go
+            to your dashboard, click on the Airports button, and add from there.
+          </p>
+        )}
         {userData?.visitedAirports?.map((airport, index) => (
           <div key={index} className="p-2">
             <p>{airport}</p>

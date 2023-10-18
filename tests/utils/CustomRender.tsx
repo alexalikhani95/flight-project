@@ -17,6 +17,7 @@ const Wrapper = ({
       <UserContext.Provider
         value={{
           user: null,
+          userData: null,
           createUser: () => Promise.resolve(),
           logout: () => Promise.resolve(),
           signIn: () => Promise.resolve(),

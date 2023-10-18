@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { render } from '../utils/CustomRender';
-import { mockUser } from '../mocks/mocks';
+import { mockUser, mockGuestUser } from '../mocks/mocks';
 import Header from '@/app/components/Header';
 
 jest.mock('next/navigation', () => ({
@@ -18,6 +18,11 @@ test('component renders the correct text and buttons when a user is logged in', 
 
   expect(screen.queryByText('Login')).not.toBeInTheDocument();
   expect(screen.queryByText('Signup')).not.toBeInTheDocument();
+});
+
+test('The settings link should not display for a guest user', () => {
+  render(<Header />, { user: mockGuestUser });
+  expect(screen.queryByText('Settings')).not.toBeInTheDocument();
 });
 
 test('component renders the correct text and buttons when a user is not logged in', () => {

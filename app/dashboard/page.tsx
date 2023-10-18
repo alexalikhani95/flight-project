@@ -1,18 +1,8 @@
 'use client';
 import Link from 'next/link';
 
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { UserContext, UserContextType } from '../context/UserContext';
-import {db} from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
-
-type User = {
-  email: string;
-  id?: string;
-  age?: string;
-  location?: string;
-  visitedAirports?: string[];
-}
 
 const Dashboard = () => {
   const { user, userData } = useContext(UserContext) as UserContextType;
@@ -23,8 +13,8 @@ const Dashboard = () => {
   
       <div className='h-[50px] mt-5 mb-5'>
         <>
-      <div className='flex'><p className='font-bold mr-2'>Age:</p><p>{userData && userData.age ? userData.age : 'Go to settings to add age'}</p></div>
-      <div className='flex'><p className='font-bold mr-2'>Location:</p><p>{userData && userData.location ? userData.location : 'Go to settings to add location'}</p></div>
+      <div className='flex'><p className='font-bold mr-2'>Age: </p><p>{userData?.age ? userData.age : 'Go to settings to add age'}</p></div>
+      <div className='flex'><p className='font-bold mr-2'>Location: </p><p>{userData?.location ? userData.location : 'Go to settings to add location'}</p></div>
       </>
       </div>
 

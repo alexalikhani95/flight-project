@@ -5,3 +5,11 @@ export const mockUser = {
   email: 'mockuser@example.com',
   displayName: 'Mock User',
 } as User;
+
+
+export const mockGuestUser = {
+  uid: 'mockGuestUserId',
+  email: null,
+  displayName: null,
+  isAnonymous: true,
+} as User

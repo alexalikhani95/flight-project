@@ -110,14 +110,15 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       } else {
         // Remove user data from localStorage on logout
         localStorage.removeItem('user');
+        localStorage.removeItem('userData');
       }
-
+      setIsCheckingAuth(false); 
     });
 
     // Get user data from localStorage on page load
-    const user = localStorage.getItem('user');
-    if (user) {
-      setUser(JSON.parse(user));
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
 
     return () => {
@@ -128,9 +129,9 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   useEffect(() => {
     if (user) {
       getUserData(user.uid);
-      setIsCheckingAuth(false); 
     }
-  }, [user]);
+  }, [user])
+
 
   useEffect(() => {
     if (
