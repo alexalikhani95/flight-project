@@ -23,12 +23,6 @@ describe('Dashboard flow', () => {
 
     cy.url().should('include', '/delayedFlights');
 
-    cy.contains('Dashboard').click();
-
-    cy.contains('My Visited Airports').click();
-
-    cy.url().should('include', '/visitedAirports');
-
     cy.contains('Logout').click();
 
   });

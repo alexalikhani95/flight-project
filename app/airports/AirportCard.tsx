@@ -25,9 +25,6 @@ const AirportCard = ({ airport }: Props) => {
       setIsUpdating(false)
     })
   } 
-
-  console.log(userData?.visitedAirports)
-
   return (
     <div className="flex align-center mt-10 shadow-lg max-w-full bg-white p-5">
       <div className="flex flex-col mr-5">
