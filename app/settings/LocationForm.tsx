@@ -19,6 +19,7 @@ const LocationForm = () => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const onSubmit = (data: LocationData) => {
+    setIsUpdating(true);
     const { location } = data;
     const addLocation = httpsCallable(functions, "addLocation");
     addLocation({ text: location })
