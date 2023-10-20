@@ -50,7 +50,7 @@ const AirportCard = ({ airport }: Props) => {
             View airport flight schedule
           </RouteButton>
         )}
-      {!user?.isAnonymous && airport.name && !userData?.visitedAirports?.includes(airport.name) && !isUpdating && <button
+      {!user?.email && airport.name && !userData?.visitedAirports?.includes(airport.name) && !isUpdating && <button
         className="px-5 py-2.5 font-medium bg-blue-500 hover:bg-blue-700 text-white rounded-lg text-sm mb-3 w-full"
          onClick={() => handleAddVisitedAirport(airport.name)} disabled={isUpdating}>
           Add airport to visited list

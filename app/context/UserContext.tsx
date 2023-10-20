@@ -19,6 +19,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { nonAuthenticatedRoutes, restrictedGuestRoutes } from '@/routes/routes';
 import {db} from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { UserData } from '@/types/types';
 
 export type UserContextType = {
   user: User | null;
@@ -39,14 +40,6 @@ export type UserContextType = {
 type UserContextProviderProps = {
   children: React.ReactNode;
 };
-
-type UserData = {
-  email: string;
-  id?: string;
-  age?: string;
-  location?: string;
-  visitedAirports?: string[];
-}
 
 export const UserContext = createContext<UserContextType | null>(null);
 
@@ -138,7 +131,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
       (!isCheckingAuth &&
         !user &&
         !nonAuthenticatedRoutes.includes(pathname)) ||
-      (user?.isAnonymous && restrictedGuestRoutes.includes(pathname))
+      (user?.email && restrictedGuestRoutes.includes(pathname))
     ) {
       router.push('/');
     }

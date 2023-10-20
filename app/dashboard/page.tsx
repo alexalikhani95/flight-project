@@ -34,7 +34,7 @@ const Dashboard = () => {
           Delayed Flights
         </button>
       </Link>
-      {!user?.isAnonymous &&
+      {!user?.email &&
       <Link href="/visitedAirports">
         <button className="m-5 bg-white p-5 border-2 border-blue-950 w-[200px]">
           My Visited Airports

@@ -21,7 +21,7 @@ const Settings = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-3xl font-bold">Settings</h1>
-      {user && user?.email !== 'guest@gmail.com' && (
+      {user && (
         <>
         <AgeForm />
         <LocationForm />

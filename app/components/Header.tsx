@@ -38,7 +38,7 @@ const Header = () => {
               Dashboard
             </button>
           </Link>
-          {!user.isAnonymous && (
+          {!user.email && (
             <Link href="/settings">
               <button className="text-blue-950 hover:text-blue-700 font-bold mr-5">
                 Settings
