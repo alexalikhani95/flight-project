@@ -1,10 +1,10 @@
-export type UserData = {
+export type UserType = {
   email: string;
   uid?: string;
   displayName?: string;
   age?: string;
   location?: string;
-  visitedAirports?: string[];
+  visitedAirports?: (string | null)[];
 }
 
 

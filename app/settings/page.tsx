@@ -6,9 +6,11 @@ import ChangeEmailForm from './ChangeEmailForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import LocationForm from './LocationForm';
 import AgeForm from './AgeForm';
+import { httpsCallable } from 'firebase/functions';
+import {functions} from '../firebase';
 
 const Settings = () => {
-  const { user, deleteAccount } = useContext(UserContext) as UserContextType;
+  const { user, setUser} = useContext(UserContext) as UserContextType;
   const [showPasswordUpdatedText, setShowUpdatedText] = useState(false);
   const [clickedDelete, setClickedDelete] = useState(false);
 
@@ -17,6 +19,12 @@ const Settings = () => {
       setShowUpdatedText(false);
     }, 3000);
   }, [showPasswordUpdatedText]);
+
+  const handleDeleteUser = () => {
+    const deleteUser = httpsCallable(functions, 'deleteUser');
+    deleteUser(user?.uid)
+    setUser(null)
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -41,7 +49,7 @@ const Settings = () => {
                 </p>
                 <button
                   className="bg-red-700 hover:bg-red-500 text-white font-bold rounded p-2 mt-5 w-full"
-                  onClick={() => deleteAccount(user)}
+                  onClick={() => handleDeleteUser()}
                 >
                   Click to Delete Account
                 </button>

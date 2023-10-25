@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+'use client'
+
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase";
+import { UserContext, UserContextType } from "../context/UserContext";
 
 type LocationData = {
   location: string;
 };
 
 const LocationForm = () => {
+  const { setUser } = useContext(UserContext) as UserContextType;
+
   const {
     register,
     handleSubmit,
@@ -27,6 +32,8 @@ const LocationForm = () => {
         setShowEmailUpdatedText(true);
         reset();
         setIsUpdating(false);
+        setUser(prevUser => ({...prevUser, location: location, email: prevUser?.email || ''}))
+
       })
       .catch((error) => {
         setError("location", {

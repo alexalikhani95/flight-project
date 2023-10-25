@@ -32,6 +32,8 @@ const AuthForm = ({ isLogin }: Props) => {
     try {
       if (isLogin) {
         await signIn(email, password);
+        router.push('/dashboard');
+
       } else {
         await createUser(email, password, username);
       }
