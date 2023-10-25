@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+'use client';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { httpsCallable } from 'firebase/functions';
 import {functions} from '../firebase';
+import { UserContext, UserContextType } from '../context/UserContext';
 
 type AgeData = {
   age: string;
 };
 
 const AgeForm = () => {
+  const { setUser } = useContext(UserContext) as UserContextType;
+
   const {
     register,
     handleSubmit,
@@ -26,6 +30,7 @@ const AgeForm = () => {
       setShowEmailUpdatedText(true);
       reset()
       setIsUpdating(false)
+      setUser(prevUser => ({...prevUser, age: age, email: prevUser?.email || ''}))
     })
     .catch((error) => {
       setError('age', {

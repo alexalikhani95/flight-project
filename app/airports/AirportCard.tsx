@@ -4,23 +4,25 @@ import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
 import { useContext, useState } from 'react';
 import { UserContext, UserContextType } from '../context/UserContext';
+import { set } from 'lodash';
 
 type Props = {
   airport: AirportData;
 };
 
 const AirportCard = ({ airport }: Props) => {
-  const { user, userData } = useContext(UserContext) as UserContextType;
+  const { user, setUser } = useContext(UserContext) as UserContextType;
   const [isUpdating, setIsUpdating] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAddVisitedAirport = (airport: string | null) =>{ 
     setIsUpdating(true);
     const addVisitedAirport = httpsCallable(functions, 'addVisitedAirport');
     addVisitedAirport({text: airport}).then(() => {
       setIsUpdating(false)
+      setUser(prevUser => ({...prevUser, visitedAirports: [...prevUser?.visitedAirports || [], airport], email: prevUser?.email || ''}));
     })
-    .catch((error) => {
+    .catch((error: { message: string }) => {
       setError(error.message);
       setIsUpdating(false)
     })
@@ -50,13 +52,13 @@ const AirportCard = ({ airport }: Props) => {
             View airport flight schedule
           </RouteButton>
         )}
-      {!user?.isAnonymous && airport.name && !userData?.visitedAirports?.includes(airport.name) && !isUpdating && <button
+      {user?.email && airport.name && !user?.visitedAirports?.includes(airport.name) && !isUpdating && <button
         className="px-5 py-2.5 font-medium bg-blue-500 hover:bg-blue-700 text-white rounded-lg text-sm mb-3 w-full"
          onClick={() => handleAddVisitedAirport(airport.name)} disabled={isUpdating}>
           Add airport to visited list
           </button> }
           {isUpdating && <p>Updating...</p>}
-          {airport.name && userData?.visitedAirports?.includes(airport.name) && <p className="text-green-500">Airport added to visited list</p>}
+          {airport.name && user?.visitedAirports?.includes(airport.name) && <p className="text-green-500">Airport added to visited list</p>}
           {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>

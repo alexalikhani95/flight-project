@@ -1,20 +1,14 @@
 import { screen } from "@testing-library/react";
 import { render } from "../utils/CustomRender";
-import Dashboard from "@/app/dashboard/page";
 import { mockUser } from "../mocks/mocks";
 import VisitedAirports from "@/app/visitedAirports/page";
 
 test("component renders with the correct username and text", () => {
   render(<VisitedAirports />, {
-    user: mockUser,
-    userData: {
-      email: "test@gmail.com",
-      visitedAirports: [
-        "Chicago OHare International Airport",
-        "Dallas/Fort Worth International Airport",
-        "Los Angeles International Airport",
-      ],
-    },
+    user: {
+      email: 'mockuser@example.com',
+      visitedAirports: ["Chicago OHare International Airport", "Dallas/Fort Worth International Airport", "Los Angeles International Airport"]
+    } 
   });
   expect(screen.getByText("My Visited Airports")).toBeInTheDocument();
 
@@ -31,10 +25,7 @@ test("component renders with the correct username and text", () => {
 
 test("component renders with the correct username and text", () => {
   render(<VisitedAirports />, {
-    user: mockUser,
-    userData: {
-      email: "test@gmail.com",
-    },
+    user: mockUser
   });
   expect(
     screen.getByText(

@@ -1,3 +1,13 @@
+export type UserType = {
+  email: string | null;
+  uid?: string;
+  displayName?: string;
+  age?: string;
+  location?: string;
+  visitedAirports?: (string | null)[];
+}
+
+
 export type AirportData = {
   country_code: string | null;
   iata_code: string | null;

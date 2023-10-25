@@ -19,47 +19,37 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { nonAuthenticatedRoutes, restrictedGuestRoutes } from '@/routes/routes';
 import {db} from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { UserType } from '@/types/types';
 
 export type UserContextType = {
-  user: User | null;
+  user: UserType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   createUser: (
     email: string,
     password: string,
     username: string
   ) => Promise<any>;
-  logout: () => Promise<any>;
+  logout: () => void;
   signIn: (email: string, password: string) => Promise<any>;
   signInAsGuest: () => Promise<any>;
   changePassword: (password: string) => Promise<any>;
   changeEmail: (email: string) => Promise<any>;
-  deleteAccount: (user: User) => Promise<any>;
-  userData: UserData | null;
 };
 
 type UserContextProviderProps = {
   children: React.ReactNode;
 };
 
-type UserData = {
-  email: string;
-  id?: string;
-  age?: string;
-  location?: string;
-  visitedAirports?: string[];
-}
-
 export const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
-  const [userData, setUserData] = useState<UserData | null>(null);
-
+  const [user, setUser] = useState<UserType | null>(typeof window !== 'undefined' && window.localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null);
 
   const getUserData = async (uid: string) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
-    setUserData(docSnap.data() as UserData | null);
+    setUser(docSnap.data() as UserType);
   };
 
   const router = useRouter();
@@ -76,12 +66,8 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     });
   };
 
-  const deleteAccount = (user: User) => {
-    return deleteUser(user);
-  };
-
   const signIn = (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
+     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signInAsGuest = () => {
@@ -89,7 +75,9 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   };
 
   const logout = () => {
-    return signOut(auth);
+    signOut(auth);
+    localStorage.removeItem('user');
+    setUser(null);
   };
 
   const changePassword = (password: string) => {
@@ -102,24 +90,14 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-
-      // Save user data in localStorage on login
       if (currentUser) {
-        localStorage.setItem('user', JSON.stringify(currentUser));
+        localStorage.setItem('user', JSON.stringify(true));
+        currentUser.isAnonymous? setUser({email: null}) : getUserData(currentUser.uid);
       } else {
-        // Remove user data from localStorage on logout
-        localStorage.removeItem('user');
-        localStorage.removeItem('userData');
+        setUser(null);
       }
       setIsCheckingAuth(false); 
     });
-
-    // Get user data from localStorage on page load
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
 
     return () => {
       unsubscribe();
@@ -127,20 +105,20 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      getUserData(user.uid);
-    }
-  }, [user])
 
-
-  useEffect(() => {
+    // if user is not logged in and tries to access a restricted route, redirect to login
     if (
-      (!isCheckingAuth &&
-        !user &&
-        !nonAuthenticatedRoutes.includes(pathname)) ||
-      (user?.isAnonymous && restrictedGuestRoutes.includes(pathname))
+      !isCheckingAuth &&
+      !localStorage.getItem("user") &&
+      !user &&
+      !nonAuthenticatedRoutes.includes(pathname)
     ) {
-      router.push('/');
+      router.push("/");
+    }
+
+    // if a guest user tries to access resticted routes, redirect to dashboard
+    if(user && !user.email && restrictedGuestRoutes.includes(pathname)) {
+      router.push('/dashboard');
     }
   }, [isCheckingAuth, pathname, router, user]);
 
@@ -148,22 +126,17 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     return <LoadingSpinner />;
   }
 
-  if (!isCheckingAuth && !user && !nonAuthenticatedRoutes.includes(pathname)) {
-    return null;
-  }
-
   return (
     <UserContext.Provider
       value={{
         createUser,
         user,
-        userData,
+        setUser,
         logout,
         signIn,
         signInAsGuest,
         changePassword,
         changeEmail,
-        deleteAccount,
       }}
     >
       {children}
