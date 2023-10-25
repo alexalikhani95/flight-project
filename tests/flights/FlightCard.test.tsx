@@ -3,7 +3,6 @@ import { render } from '../utils/CustomRender';
 import { fakeFlights } from '@/mocks/mockData';
 import FlightCard from '@/app/flights/FlightCard';
 import { mockUser } from '../mocks/mocks';
-mockUser;
 
 test('FlightCard renders with the correct text and buttons when a user is signed in', () => {
   render(<FlightCard flight={fakeFlights.data[0]} />, {

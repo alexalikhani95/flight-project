@@ -1,7 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import { render } from '../utils/CustomRender';
 import { fakeAirport } from '@/mocks/mockData';
-import Airports from '@/app/airports/page';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import Airport from '@/app/airports/[slug]/page';
