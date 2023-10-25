@@ -92,7 +92,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         localStorage.setItem('user', JSON.stringify(true));
-        getUserData(currentUser.uid);
+        currentUser.isAnonymous? setUser({email: null}) : getUserData(currentUser.uid);
       } else {
         setUser(null);
       }
@@ -105,16 +105,20 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   }, []);
 
   useEffect(() => {
+
+    // if user is not logged in and tries to access a restricted route, redirect to login
     if (
-      (
-        !isCheckingAuth &&
-        !localStorage.getItem('user') &&
-        !user &&
-        !nonAuthenticatedRoutes.includes(pathname)) ||
-      (!localStorage.getItem('user') && !isCheckingAuth && !user?.email && restrictedGuestRoutes.includes(pathname))
+      !isCheckingAuth &&
+      !localStorage.getItem("user") &&
+      !user &&
+      !nonAuthenticatedRoutes.includes(pathname)
     ) {
-      console.log('1', user)
-      router.push('/');
+      router.push("/");
+    }
+
+    // if a guest user tries to access resticted routes, redirect to dashboard
+    if(user && !user.email && restrictedGuestRoutes.includes(pathname)) {
+      router.push('/dashboard');
     }
   }, [isCheckingAuth, pathname, router, user]);
 
