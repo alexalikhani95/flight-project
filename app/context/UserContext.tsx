@@ -44,12 +44,15 @@ export const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [user, setUser] = useState<UserType | null>(typeof window !== 'undefined' && window.localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null);
+  const [user, setUser] = useState<UserType | null>(null);
+  const [userDataLoaded, setUserDataLoaded] = useState(false);
+
 
   const getUserData = async (uid: string) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     setUser(docSnap.data() as UserType);
+    setUserDataLoaded(true);
   };
 
   const router = useRouter();
@@ -76,7 +79,6 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
 
   const logout = () => {
     signOut(auth);
-    localStorage.removeItem('user');
     setUser(null);
   };
 
@@ -91,12 +93,11 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        localStorage.setItem('user', JSON.stringify(true));
-        currentUser.isAnonymous? setUser({email: null}) : getUserData(currentUser.uid);
-      } else {
-        setUser(null);
+        currentUser.isAnonymous
+          ? setUser({ email: null })
+          : getUserData(currentUser.uid);
       }
-      setIsCheckingAuth(false); 
+      setIsCheckingAuth(false);
     });
 
     return () => {
@@ -104,27 +105,30 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     };
   }, []);
 
+
   useEffect(() => {
+
+    if (!isCheckingAuth && userDataLoaded) {
 
     // if user is not logged in and tries to access a restricted route, redirect to login
     if (
-      !isCheckingAuth &&
-      !localStorage.getItem("user") &&
       !user &&
       !nonAuthenticatedRoutes.includes(pathname)
     ) {
       router.push("/");
     }
 
-    // if a guest user tries to access resticted routes, redirect to dashboard
-    if(user && !user.email && restrictedGuestRoutes.includes(pathname)) {
-      router.push('/dashboard');
+    // if a guest user tries to access resticted routes/ a user tries to go to non authenticated routesredirect to dashboard
+    if((user && !user.email && restrictedGuestRoutes.includes(pathname)) || (user && nonAuthenticatedRoutes.includes(pathname))) {
+      return router.push('/dashboard');
     }
-  }, [isCheckingAuth, pathname, router, user]);
+  }
+  }, [isCheckingAuth, pathname, router, user, userDataLoaded]);
 
   if (isCheckingAuth) {
     return <LoadingSpinner />;
   }
+
 
   return (
     <UserContext.Provider
