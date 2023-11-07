@@ -20,8 +20,6 @@ import { nonAuthenticatedRoutes, restrictedGuestRoutes } from '@/routes/routes';
 import {db} from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { UserType } from '@/types/types';
-import { get, set } from 'lodash';
-// import { redirectUser } from '../utils/utils';
 
 export type UserContextType = {
   user: UserType | null;
@@ -133,9 +131,6 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   if (isCheckingAuth) {
     return <LoadingSpinner />;
   }
-
-  console.log('user', user)
-
 
   return (
     <UserContext.Provider
