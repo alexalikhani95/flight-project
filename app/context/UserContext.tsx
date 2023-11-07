@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, useCallback } from 'react';
 import { auth } from '../firebase';
 import {
   createUserWithEmailAndPassword,
@@ -20,6 +20,8 @@ import { nonAuthenticatedRoutes, restrictedGuestRoutes } from '@/routes/routes';
 import {db} from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { UserType } from '@/types/types';
+import { get, set } from 'lodash';
+// import { redirectUser } from '../utils/utils';
 
 export type UserContextType = {
   user: UserType | null;
@@ -45,18 +47,31 @@ export const UserContext = createContext<UserContextType | null>(null);
 export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [user, setUser] = useState<UserType | null>(null);
-  const [userDataLoaded, setUserDataLoaded] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
 
-  const getUserData = async (uid: string) => {
+  const redirectUser = useCallback((user: UserType | null, pathname: string) => {
+    const isGuestUser =  !user?.email
+    const shouldRedirectToDashboard = user && nonAuthenticatedRoutes.includes(pathname) || isGuestUser && restrictedGuestRoutes.includes(pathname)
+    const shouldRedirectToLogin = !user && !nonAuthenticatedRoutes.includes(pathname)
+    
+    if(shouldRedirectToDashboard) {
+      return router.push('/dashboard');
+    }
+
+    if (shouldRedirectToLogin) {
+      return router.push("/auth/login");
+    }
+  }, [router])
+
+  const getUserData = useCallback(async (uid: string) => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
     setUser(docSnap.data() as UserType);
-    setUserDataLoaded(true);
-  };
-
-  const router = useRouter();
-  const pathname = usePathname();
+    setIsCheckingAuth(false);
+    redirectUser(docSnap.data() as UserType, pathname)
+  },[pathname, redirectUser])
 
   const createUser = async (
     email: string,
@@ -90,44 +105,36 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     return updateEmail(auth.currentUser!, email);
   };
 
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        currentUser.isAnonymous
-          ? setUser({ email: null })
-          : getUserData(currentUser.uid);
+        if(currentUser.isAnonymous) {
+          setUser({ email: null })
+          redirectUser({email: null}, pathname)
+          setIsCheckingAuth(false)
+        } else {
+          await getUserData(currentUser.uid);     
+        }
       }
-      setIsCheckingAuth(false);
+      else {
+        setUser(null);
+        setIsCheckingAuth(false);
+        redirectUser(null, pathname)
+      }
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [pathname, getUserData, redirectUser]);
 
-
-  useEffect(() => {
-
-    if (!isCheckingAuth && userDataLoaded) {
-
-    // if user is not logged in and tries to access a restricted route, redirect to login
-    if (
-      !user &&
-      !nonAuthenticatedRoutes.includes(pathname)
-    ) {
-      router.push("/");
-    }
-
-    // if a guest user tries to access resticted routes/ a user tries to go to non authenticated routesredirect to dashboard
-    if((user && !user.email && restrictedGuestRoutes.includes(pathname)) || (user && nonAuthenticatedRoutes.includes(pathname))) {
-      return router.push('/dashboard');
-    }
-  }
-  }, [isCheckingAuth, pathname, router, user, userDataLoaded]);
 
   if (isCheckingAuth) {
     return <LoadingSpinner />;
   }
+
+  console.log('user', user)
 
 
   return (
