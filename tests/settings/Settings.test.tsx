@@ -25,4 +25,8 @@ test('When the user clicks Delete Account the correct text shows below the butto
   expect(
     screen.getByText('Are you sure you want to delete your account?')
   ).toBeInTheDocument();
+
+  expect(screen.getByText('No, I would like to keep my account')).toBeInTheDocument();
+  expect(screen.getByText('Yes, delete my account')).toBeInTheDocument();
+
 });

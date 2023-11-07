@@ -27,33 +27,50 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-5">
       {user && (
         <>
           <h1 className="text-3xl font-bold">Settings</h1>
-          <AgeForm />
-          <LocationForm />
-          <ChangePasswordForm />
-          <ChangeEmailForm />
+          <div className="flex flex-wrap justify-around">
+            <div>
+              <AgeForm />
+            </div>
+            <div>
+              <LocationForm />
+            </div>
+            <div>
+              <ChangePasswordForm />
+            </div>
+            <div>
+              <ChangeEmailForm />
+            </div>
+          </div>
           <div className="flex flex-col items-center mt-5">
-            <p
-              className="font-bold text-red-700 cursor-pointer"
+           {!clickedDelete && <button
+              className="bg-red-700 hover:bg-red-500 text-white font-bold rounded p-2 mt-5 w-full"
               onClick={() => setClickedDelete(true)}
             >
               Delete Account
-            </p>
+            </button>
+}
             {clickedDelete && (
-              <>
+              <div>
                 <p className="mt-2 font-bold text-red">
                   Are you sure you want to delete your account?
                 </p>
                 <button
+                  className="bg-green-700 hover:bg-green-500 text-white font-bold rounded p-2 mt-5 w-full"
+                  onClick={() => setClickedDelete(false)}
+                >
+                  No, I would like to keep my account
+                </button>
+                <button
                   className="bg-red-700 hover:bg-red-500 text-white font-bold rounded p-2 mt-5 w-full"
                   onClick={() => handleDeleteUser()}
                 >
-                  Click to Delete Account
+                  Yes, delete my account
                 </button>
-              </>
+              </div>
             )}
           </div>
         </>

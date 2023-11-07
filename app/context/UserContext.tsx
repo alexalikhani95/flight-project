@@ -8,11 +8,9 @@ import {
   updateProfile,
   signOut,
   onAuthStateChanged,
-  User,
   updatePassword,
   updateEmail,
   signInAnonymously,
-  deleteUser,
 } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 import LoadingSpinner from '../components/LoadingSpinner';
